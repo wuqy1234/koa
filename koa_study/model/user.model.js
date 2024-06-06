@@ -5,6 +5,11 @@ const seq = require('../db/seq');
 
 //'zd_user'数据库表的名字
 const User = seq.define('zd_user', {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
     user_name: {
         type: DataTypes.STRING,
         allowNull: false,
