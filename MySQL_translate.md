@@ -1,4 +1,4 @@
-
+```mysql
 USE hello;
 #查看表结构
 DESC students;
@@ -306,3 +306,7 @@ SELECT customers.name, orders.order_id, orders.order_date
 FROM customers
 #把右边的表加入左边的表,显示左表,左表没有和右表对应上的会显示null
 RIGHT JOIN orders ON customers.customer_id = orders.customer_id;
+
+
+```
+
