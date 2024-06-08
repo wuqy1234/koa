@@ -307,6 +307,16 @@ FROM customers
 #把右边的表加入左边的表,显示左表,左表没有和右表对应上的会显示null
 RIGHT JOIN orders ON customers.customer_id = orders.customer_id;
 
+USE hello;
+#SELECT子句可以选择显示哪几个列的信息,这里显示了 name,version,phone, age
+SELECT name,version,phone, age 
+FROM customer
+#age大于20
+WHERE age >20
+#根据phone排序,默认降序
+ORDER BY phone
+#显示10条数据
+LIMIT 10;
 
 ```
 
