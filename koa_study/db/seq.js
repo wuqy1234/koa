@@ -10,7 +10,11 @@ const {
 const seq = new Sequelize(MYSQL_DB, MYSQL_USER, MYSQL_PWD, {
     host: MYSQL_HOST,
     port: 3306,
-    dialect: 'mysql'
+    dialect: 'mysql',
+    //打印日志的配置 console.info比console.log更详细,不配置此项时,默认是console.log
+    // logging: console.info,
+    //禁用日志,避免输出内部日志
+    logging: false
 });
 
 seq
@@ -22,4 +26,6 @@ seq
         console.log('数据库连接失败', err)
     })
 
+
+    
 module.exports = seq
