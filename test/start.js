@@ -1,4 +1,5 @@
-const { sequelize, User } = require('./Sequelize/1_数据库连接');
+const { sequelize, User, } = require('./Sequelize/1_数据库连接');
+const { Op, QueryTypes } = require("sequelize");
 const koa = require('koa');
 const app = new koa();
 const Router = require('koa-router')
@@ -8,22 +9,27 @@ router.get('/', async (ctx) => {
 })
 app.use(router.routes())
 
-//-------------------------------------------------------------------------------------//
+//------------------------------------------------------------------------------------//
 
 const aa = async (params) => {
-    const jane = User.build({ name: "小张", favoriteColor: 'black', age: 6, cash: 50 });
 
 
-    jane.favoriteColor = "blue"
-    jane.name = '小李'
-    await jane.save();
+    const projects = await sequelize.query('SELECT * FROM users WHERE name IN($status1)',
+        {
+            bind: { status: '小李', status1: '小张' },
+            type: QueryTypes.SELECT
+        });
+    // const filteredProjects = projects.filter(project => project.name.includes('小'));
 
 
-    console.log(jane.toJSON());
+    console.log(JSON.stringify(projects, null, 2));
+
+
+
+
 
 
 }
-
 aa()
 
 
