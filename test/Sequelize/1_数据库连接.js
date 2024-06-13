@@ -26,7 +26,10 @@ const User = sequelize.define("user", {
     },
     name: {
         type: DataTypes.TEXT,
-        allowNull: true
+        allowNull: true,
+        validate: {
+            isIn: [['foo', 'bar']]
+        }
     },
 
     favoriteColor: {
@@ -40,9 +43,12 @@ const User = sequelize.define("user", {
                 if (value > 30 || value < 18) {
                     throw new Error('年龄不在范围内');
                 }
-            }
+            },
             // min: 18,
             // max: 30
+            isInt: {
+                msg: "必须是整数"
+            }
         }
     },
     cash: DataTypes.INTEGER,
@@ -56,6 +62,100 @@ const User = sequelize.define("user", {
         }
     }
 });
+
+const Students = sequelize.define("Students", {
+    username: {
+        type: DataTypes.STRING,
+        allowNull: false
+    }
+})
+
+const Profile = sequelize.define("Profile", {
+    bio: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+            equals: [['foo', 'bar']]
+        }
+    },
+    name: {
+        type: DataTypes.STRING,
+        allowNull: false
+    }
+
+})
+
+// const Classroom = sequelize.define("Classroom", {
+//     bio: {
+//         type: DataTypes.TEXT,
+//         allowNull: true
+//     }
+
+// })
+
+
+Students.belongsToMany(Profile, {
+    through: 'middleTable', // 中间表的名称
+    as: 'Profile', // 这将允许我们使用 user.getProjects() 方法
+    foreignKey: 'userId'
+});
+
+// Project belongs to many Users
+Profile.belongsToMany(Students, {
+    through: 'middleTable', // 中间表的名称
+    as: 'students', // 这将允许我们使用 project.getUsers() 方法
+    foreignKey: 'projectId'
+});
+
+class Person extends Model { }
+Person.init({
+    name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        get() {
+            const rawValue = this.getDataValue('name');
+
+            return rawValue ? rawValue.toUpperCase() : null;
+        }
+    },
+    age: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        get() {
+            const rawValue = this.name;
+
+            return rawValue ? rawValue.toUpperCase() : null;
+        }
+    }
+}, {
+    sequelize,
+    modelName: 'Person'
+});
+
+class Mail extends Model { }
+
+Mail.init({
+    subject: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    body: {
+        type: DataTypes.TEXT,
+        allowNull: false
+    }
+}, {
+    sequelize,
+    modelName: 'Mail'
+});
+//这样能通过姓名找到发送的邮件或接收的邮件,或者发送和接收的都有,通过关联,个人下面有两个表
+//在个人下面有两个关联表,表名sentMails和receivedMails,即别名sentMails和receivedMails.
+Person.hasMany(Mail, { as: 'sentMails', foreignKey: 'senderId' });
+Person.hasMany(Mail, { as: 'receivedMails', foreignKey: 'receiverId' });
+//这样能通过邮件找到发送者和接收者,通过关联,邮件下面有两个表
+//在邮件下面有两个关联表,表名sender和receiver,即别名sender和receiver,外键的作用就是把两个表关联起来
+Mail.belongsTo(Person, { as: 'sender', foreignKey: 'senderId' });
+Mail.belongsTo(Person, { as: 'receiver', foreignKey: 'receiverId' });
+
 
 
 
@@ -71,31 +171,11 @@ const User = sequelize.define("user", {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 module.exports = {
-    sequelize,
-    User
+    User,
+    Students,
+    Profile,
+    Person,
+    Mail,
+    sequelize
 }

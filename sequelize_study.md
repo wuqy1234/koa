@@ -1,3 +1,5 @@
+```js
+
 await jane.destroy();//删除实例
 
   await User.drop()//删除表
@@ -76,3 +78,38 @@ await User.update({ lastName: "Doe" }, {
       limit: 2,
       group: ['id', 'name']
   });
+
+
+const jane = await User.create({ name: "Jane" });
+// console.log(jane); // 不要这样!
+console.log(jane.toJSON()); // 这样最好!
+console.log(JSON.stringify(jane, null, 4)); // 这样也不错!
+
+
+
+const aa = User.findAll({
+      attributes: [
+          ['name', '姓名'],
+          ['age', '年龄'],
+          // count方法的别名,'同龄人数'
+          [sequelize.fn('COUNT', '*'), '同龄人数']
+      ],
+      //按两个条件分组,年龄和姓名分组,这两个条件组合都是唯一的,没有重复的,所以count方法只会显示1
+      group: ['age', "name"]
+  });
+  console.log(aa.then(e => console.log(JSON.stringify(e, null, 4))))
+
+
+  const aa = User.findAll({
+      attributes: [
+          //['name', '姓名']必须注释掉,因为不参与分组,所以是多余的,且会报错
+          // ['name', '姓名'],
+          ['age', '年龄'],
+          [sequelize.fn('COUNT', sequelize.col('age')), '同龄人数']
+      ],
+      group: ['age']
+  });
+  console.log(aa.then(e => console.log(JSON.stringify(e, null, 4))))
+
+  
+  ```
