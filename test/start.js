@@ -7,7 +7,7 @@ const {
     Product,
     UserOne,
     Address
-} = require('./Sequelize/1_数据库连接');
+} = require('./1_数据库连接');
 const { Op, QueryTypes } = require("sequelize");
 const koa = require('koa');
 const app = new koa();
