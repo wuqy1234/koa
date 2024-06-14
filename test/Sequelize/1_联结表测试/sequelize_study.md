@@ -168,7 +168,7 @@ console.log(JSON.stringify(result, null, 2));
 
 认真比对两者的区别
 
-第一个:
+方式1:
    const amidala = await User.create({
         username: 'p4dm34',
         points: 1000,
@@ -206,7 +206,7 @@ console.log(JSON.stringify(result, null, 2));
 
     console.log(JSON.stringify(result, null, 2));
 
-    第二个:
+    方式2:
 
     const amidala = await User.create(
         {
@@ -237,6 +237,9 @@ console.log(JSON.stringify(result, null, 2));
     //直接给联结表插入数据
     // await Grant.create({ selfGranted: true });
 
+    //能够起到方式1的效果,这里是把amidala(user)的实例和queen(profile)的实例插入联结表,同时插入联结表的实例即{ through: { selfGranted: true }
+    await amidala.addProfile(queen, { through: { selfGranted: true } });
+
     const aa = await User.findAll({
         include: {
             //查找Profile关联表,
@@ -254,11 +257,33 @@ console.log(JSON.stringify(result, null, 2));
     console.log(JSON.stringify(aa, null, 2))
 
 
+修改方式2使其达到和方式1一样的效果:
 
+const amidala = await User.create({username: '小花', points: 1000});
+const queen = await Profile.create({name: 'Queen'});
+//特别注意:是addProfile,不是addUser
+//不使用add方法数据无法相互关联,数据会分散,多对多使用add,一对一使用set
+await amidala.addProfile(queen, { through: { selfGranted: true } });
 
-
-
-
+等效于:
+const amidala = await User.create({
+        username: '小花',
+        points: 1000,
+        profiles: [{
+            name: 'Queen',
+            grant: {
+                selfGranted: true
+            }
+        }]
+    }, {
+        include: {
+            model: Profile,
+            include: {
+                model: Grant,
+                attributes: ['selfGranted']
+            }
+        }
+    });
 
 
   ```

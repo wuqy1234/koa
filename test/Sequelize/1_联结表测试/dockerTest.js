@@ -46,32 +46,36 @@ const {
 
     const amidala = await User.create(
         {
-            username: 'p4dm3', points: 1000, grants: [{ selfGranted: true }]
+            username: '小花', points: 1000,
+            //这里多插了一条数据到联结表中,所以数据库中多出了一条数据
+            //  grants: [{ selfGranted: true }]
         },
-        {
-            include: [{
-                model: Grant,
-                attributes: ['selfGranted']
-            }]
-        }
+        // {
+        // include: [{
+        //     model: Grant,
+        //     attributes: ['selfGranted']
+        // }]
+        // }
     );
 
     const queen = await Profile.create(
         {
             name: 'Queen',
-            grants: [{ selfGranted: true }]
+            // grants: [{ selfGranted: true }]
 
         },
-        {
-            include: [{
-                model: Grant,
-                attributes: ['selfGranted']
-            }]
-        }
+        // {
+        //     include: [{
+        //         model: Grant,
+        //         attributes: ['selfGranted']
+        //     }]
+        // }
     );
 
     //直接给联结表插入数据
     // await Grant.create({ selfGranted: true });
+
+    await amidala.addProfile(queen, { through: { selfGranted: true } });
 
     const aa = await User.findAll({
         include: {
