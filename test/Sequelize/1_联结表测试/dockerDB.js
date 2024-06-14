@@ -88,12 +88,12 @@ User.belongsToMany(Profile, { through: Grant });
 Profile.belongsToMany(User, { through: Grant });
 
 // 在 User 和 Grant 之间设置一对多关系
-User.hasMany(Grant);
-Grant.belongsTo(User);
+// User.hasMany(Grant);
+// Grant.belongsTo(User);
 
 // 在Profile 和 Grant 之间也设置一对多关系
-Profile.hasMany(Grant);
-Grant.belongsTo(Profile);
+// Profile.hasMany(Grant);
+// Grant.belongsTo(Profile);
 
 // User.Profile = User.belongsToMany(Profile, { through: User_Profile });
 

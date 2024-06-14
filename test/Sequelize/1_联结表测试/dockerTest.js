@@ -46,7 +46,7 @@ const {
 
     const amidala = await User.create(
         {
-            username: '小花', points: 1000,
+            username: '小花1', points: 1000,
             //这里多插了一条数据到联结表中,所以数据库中多出了一条数据
             //  grants: [{ selfGranted: true }]
         },
