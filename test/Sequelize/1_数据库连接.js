@@ -8,7 +8,6 @@ const sequelize = new Sequelize('hello', 'root1', '123456', {
     timezone: '+08:00'
 });
 
-
 sequelize
     .authenticate()
     .then(() => {
@@ -27,9 +26,9 @@ const User = sequelize.define("user", {
     name: {
         type: DataTypes.TEXT,
         allowNull: true,
-        validate: {
-            isIn: [['foo', 'bar']]
-        }
+        // validate: {
+        //     isIn: ['foo', 'bar']
+        // }
     },
 
     favoriteColor: {
@@ -93,7 +92,6 @@ const Profile = sequelize.define("Profile", {
 
 // })
 
-
 Students.belongsToMany(Profile, {
     through: 'middleTable', // 中间表的名称
     as: 'Profile', // 这将允许我们使用 user.getProjects() 方法
@@ -147,15 +145,58 @@ Mail.init({
     sequelize,
     modelName: 'Mail'
 });
+
 //这样能通过姓名找到发送的邮件或接收的邮件,或者发送和接收的都有,通过关联,个人下面有两个表
 //在个人下面有两个关联表,表名sentMails和receivedMails,即别名sentMails和receivedMails.
 Person.hasMany(Mail, { as: 'sentMails', foreignKey: 'senderId' });
 Person.hasMany(Mail, { as: 'receivedMails', foreignKey: 'receiverId' });
+
 //这样能通过邮件找到发送者和接收者,通过关联,邮件下面有两个表
 //在邮件下面有两个关联表,表名sender和receiver,即别名sender和receiver,外键的作用就是把两个表关联起来
 Mail.belongsTo(Person, { as: 'sender', foreignKey: 'senderId' });
 Mail.belongsTo(Person, { as: 'receiver', foreignKey: 'receiverId' });
 
+
+
+class Product extends Model { }
+Product.init({
+    title: Sequelize.STRING
+}, { sequelize, modelName: 'product' });
+
+class UserOne extends Model { }
+UserOne.init({
+    firstName: Sequelize.STRING,
+    lastName: Sequelize.STRING
+}, { sequelize, modelName: 'userOne' });
+
+class Address extends Model { }
+Address.init({
+    type: DataTypes.STRING,
+    line1: Sequelize.STRING,
+    line2: Sequelize.STRING,
+    city: Sequelize.STRING,
+    state: Sequelize.STRING,
+    zip: Sequelize.STRING,
+}, { sequelize, modelName: 'address' });
+
+Product.UserOne = Product.belongsTo(UserOne, { as: 'userOne_1' });
+UserOne.Addresses = UserOne.hasMany(Address, { as: 'addresses_1' });
+
+
+
+
+
+
+
+console.log(
+    Product.UserOne,
+    UserOne.Addresses,
+    Product.belongsTo(UserOne),
+    UserOne.hasMany(Address),
+    Person.hasMany(Mail),
+    Mail.belongsTo(Person, { through: 'middleTable', }),
+    // Profile.belongsToMany(Students),
+    'mmmmmmmmmmmmmm');
 
 
 
@@ -169,13 +210,14 @@ Mail.belongsTo(Person, { as: 'receiver', foreignKey: 'receiverId' });
 })();
 
 
-
-
 module.exports = {
     User,
     Students,
     Profile,
     Person,
     Mail,
-    sequelize
+    sequelize,
+    Product,
+    UserOne,
+    Address
 }

@@ -4,7 +4,10 @@ const {
     Students,
     Person,
     Mail,
-    sequelize } = require('./Sequelize/1_数据库连接');
+    Product,
+    UserOne,
+    Address
+} = require('./Sequelize/1_数据库连接');
 const { Op, QueryTypes } = require("sequelize");
 const koa = require('koa');
 const app = new koa();
@@ -18,6 +21,7 @@ app.use(router.routes())
 //------------------------------------------------------------------------------------//
 
 const aa = async (params) => {
+
 
 
 
