@@ -145,7 +145,22 @@ Subtask.hasOne(Product, { foreignKey: 'productId' });
     // aa1 = await Subtask.decrement({age: 5}, { where: { id: 1 } })
 
 
-    // console.log(JSON.stringify(aa1, null, 2));
+
+
+
+    const aa = await Subtask.findAll({
+        attributes: [],
+       
+        include: [{
+            // attributes: ['num'],
+            model: Product,
+            where: {
+                num: { [Op.eq]: 56 }
+            },
+        }],
+    })
+
+    console.log(JSON.stringify(aa, null, 2));
 })();
 
 
