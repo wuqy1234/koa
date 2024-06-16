@@ -87,7 +87,7 @@ console.log(JSON.stringify(jane, null, 4)); // 这样也不错!
 
 
 
-const aa = User.findAll({
+const aa = User.findAll({//未添加await
       attributes: [
           ['name', '姓名'],
           ['age', '年龄'],
@@ -286,4 +286,4 @@ const amidala = await User.create({
     });
 
 
-  ```
+```

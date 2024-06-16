@@ -15,7 +15,7 @@ const sequelize = new Sequelize('test1', 'root', '123456', {
 // 同步模型到数据库，创建表
 (async () => {
     try {
-        await sequelize.sync({ alter: true }); // force: true
+        await sequelize.sync({ alter: true }); // force  alter
         console.log('表创建成功');
     } catch (error) {
         console.error('创建表时出错:', error);
