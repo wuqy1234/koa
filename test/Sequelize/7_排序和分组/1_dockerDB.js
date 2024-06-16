@@ -58,9 +58,32 @@ Subtask.hasOne(Product, { foreignKey: 'productId' });
     //         attributes: ["num"],
     //     }],
     //     order: [
+    //使用关联模型的名字进行排序
     //     [Product, 'num', 'DESC']
     // ]
     // })
+
+    // const aa1 = await Subtask.findAll({
+    //     include: [{
+    //         model: Product,
+    //         attributes: ["num"],
+    //     }],
+    //     order: [
+    //使用关联模型的在主模型字段里的名称进行排序,首字母小写product,加引号
+    //         ['product', 'num', 'DESC'],
+    //     ]
+    // });
+
+    // const aa1 = await Subtask.findAll({
+    //     include: [{
+    //         model: Product,
+    //         attributes: ["num"],
+    //     }],
+    //     order: [
+    // 使用关联模型的名字进行排序
+    //         [{ model: Product }, 'num', 'DESC'],
+    //     ]
+    // });
 
     // const aa = await Subtask.findAll({
     //     attributes: [
@@ -76,9 +99,53 @@ Subtask.hasOne(Product, { foreignKey: 'productId' });
     //     ]
     // });
 
+    // const aa1 = await Subtask.findAll({
+    //     // attributes: ['age'],
+    //     attributes:{
+    //         exclude: ["id", "num"]
+    //     },
+    //     order: [
+    //         [sequelize.col('age'), 'DESC']
+    //     ],
+    //     limit: 1  // 如果你只想要找到age最大的那一条记录，可以使用limit限制结果数量
+    // });
+
+    //   const aa1 = await Subtask.findOne({
+    //       attributes: ['age'],
+    //       order: [
+    //               [sequelize.col('age'), 'DESC']
+    //           ],
+    //     });
 
 
-    console.log(JSON.stringify(aa, null, 2));
+    // const aa1 = await Subtask.findOne({
+    //     attributes: ['age'],
+    //     order: [
+    //         ['age', 'DESC']
+    //     ],
+    // });
+
+    // const aa1 = await Subtask.max('age');
+    // const aa1 = await Subtask.min('age');
+    // const aa1 = await Subtask.sum('age');
+    //在小于20的范围内找最大值
+    // const aa1 = await Subtask.max('age', { where: { age: { [Op.lt]: 20 } } });
+    //在大于20的范围内找最大值
+    // const aa1 = await Subtask.min('age', { where: { age: { [Op.gt]: 20 } } });
+    //在大于20的范围内求和
+    // const aa1 = await Subtask.sum('age', { where: { age: { [Op.gt]: 20 } } });
+
+    // const aa1 = await Subtask.count({
+    //     attributes: 'age',
+    // });
+    //找到id为1的age加5
+    // aa1 = await Subtask.increment({ age: 5 }, { where: { id: 1 } })
+    //找到id为1的age减5
+    // aa1 = await Subtask.increment({age: -5}, { where: { id: 1 } })
+    // aa1 = await Subtask.decrement({age: 5}, { where: { id: 1 } })
+
+
+    // console.log(JSON.stringify(aa1, null, 2));
 })();
 
 
