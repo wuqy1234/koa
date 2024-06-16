@@ -58,6 +58,13 @@ const User = sequelize.define("user", {
 
 //综上:两者的作用是一样的,updata只更新单个字段,save更新所有字段
 //await jane.save({ fields: ['name'] });这样就和updata差不多了
+//以下只有username字段被插入
+//const user = await User.create({
+// username: 'alice123',
+//     isAdmin: true
+// }, { fields: ['username'] });
+
+
 module.exports = {
 
 

@@ -26,7 +26,6 @@ const sequelize = new Sequelize('test1', 'root', '123456', {
 
 (async () => {
 
-
 })();
 
 
