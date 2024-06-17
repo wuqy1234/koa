@@ -43,7 +43,7 @@ console.log(
         await sequelize.sync({ alter: true }); // force  alter
         console.log('表创建成功');
     } catch (error) {
-        console.error('创建表时出错:', error);
+        console.error('创建表时出错:', error); 
     }
 })();
 
