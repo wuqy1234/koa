@@ -190,51 +190,132 @@ Person.belongsToMany(Person, {
     //         ],
     //     });
     //  console.log(JSON.stringify(aa, null, 2));
-    getGrandchildren('John dad')
 
+
+
+    let grandchildrenResult = await getGrandchildren('John dad', 2)
+    console.log(grandchildrenResult, 'aaaaaaaaaaaaaaaaaa');
+
+    let grandchildrenResult_tylm = await getGrandchildren_tylm('John dad', 4, 4)
+    console.log(grandchildrenResult_tylm, 'bbbbbbbbbbbbbbbbbb');
 })();
 
 
-async function getGrandchildren(name) {
-    const son = await Person.findAll({
-        where: { name },
-        include: {
-            model: Person,
-            as: 'Children', // 使用“孩子”关系别名
-            attributes: ['name'],
-            through: {
-                attributes: [], // 不返回联结表的字段
-            }
-        }
-    })
-    const childrens = son[0].Children;
-    let myson = [];
-    for (const child of childrens) {
-        // myson = myson.concat(child);和push的作用一样,不过是不断在改变数组 let myson = []
-        myson.push(child.name)
-    }
-    let getChildren = [];
-    for (const child of myson) {
-        const grandson = await Person.findAll({
-            where: { name: child },
+// async function getGrandchildren(name) {
+//     const son = await Person.findAll({
+//         where: { name },
+//         include: {
+//             model: Person,
+//             as: 'Children', // 使用“孩子”关系别名
+//             attributes: ['name'],
+//             through: {
+//                 attributes: [], // 不返回联结表的字段
+//             }
+//         }
+//     })
+//     const childrens = son[0].Children;
+//     let myson = [];
+//     for (const child of childrens) {
+//         // myson = myson.concat(child);和push的作用一样,不过是不断在改变数组 let myson = []
+//         myson.push(child.name)
+//     }
+//     let getChildren = [];
+//     for (const child of myson) {
+//         const grandson = await Person.findAll({
+//             where: { name: child },
+//             include: {
+//                 model: Person,
+//                 as: 'Children', // 使用“孩子”关系别名
+//                 attributes: ['name'],
+//                 through: {
+//                     attributes: [], // 不返回联结表的字段
+//                 }
+//             }
+//         })
+//         const grandsonChildrens = grandson[0].Children; 
+//         for (const grandsonChild of grandsonChildrens) {
+//             getChildren.push(grandsonChild.name)
+//         }
+//     }
+//     console.log(JSON.stringify(getChildren, null, 2));
+//     return getChildren
+// }
+
+
+//递归优化
+async function getGrandchildren(name, n) {
+    let Grandchildrens = [];
+    let Grandchildrens_log = [];
+    async function getChildren(name, n = 1) {
+        const sons = await Person.findAll({
+            where: { name },
             include: {
                 model: Person,
-                as: 'Children', // 使用“孩子”关系别名
+                as: 'Children',
                 attributes: ['name'],
                 through: {
-                    attributes: [], // 不返回联结表的字段
+                    attributes: [],
                 }
             }
         })
-        const grandsonChildrens = grandson[0].Children; 
-        for (const grandsonChild of grandsonChildrens) {
-            getChildren.push(grandsonChild.name)
+        const childrenNames = sons[0].Children.map(child => child.name);
+        if (sons.length > 0) {
+            await Promise.all(
+                childrenNames.map(async childName => {
+                    await getChildren(childName, n - 1);
+                    Grandchildrens_log = Grandchildrens_log.concat(childName);
+                    if (n == 1) {
+                        Grandchildrens = Grandchildrens.concat(childrenNames)
+                    }
+                    console.log(n,'wwwwwwwwwwwww');
+                }))
         }
+
     }
-    console.log(JSON.stringify(getChildren, null, 2));
-    return getChildren
+    await getChildren(name, n);
+    return { Grandchildrens, Grandchildrens_log }
 }
 
+
+async function getGrandchildren_tylm(name, depth, n) {
+    let grandchildren = [];
+
+    async function getChildren(name, depth) {
+        if (depth === 0) return; // 递归终止条件
+
+        const sons = await Person.findAll({
+            where: { name },
+            include: {
+                model: Person,
+                as: 'Children',
+                attributes: ['name'],
+                through: {
+                    attributes: [],
+                }
+            }
+        });
+
+        if (sons.length > 0) {
+            const childrenNames = sons[0].Children.map(child => child.name);
+
+            // 确保等待所有子任务完成
+            await Promise.all(
+                childrenNames.map(async childName => {
+                    const subGrandchildren = await getChildren(childName, depth - 1);
+                    grandchildren = grandchildren.concat(subGrandchildren || []); // 如果子任务返回null或undefined，则忽略
+                })
+            );
+
+            // 首次进入此函数层级时，添加当前层级的孩子们
+            if (depth === n) {
+                grandchildren = grandchildren.concat(childrenNames);
+            }
+        }
+    }
+
+    await getChildren(name, depth);
+    return grandchildren;
+}
 
 
 module.exports = {
