@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "cls-hooked": "^4.2.2",
     "deep-equal": "^2.2.3",
     "dotenv": "^16.4.5",
     "jsonwebtoken": "^9.0.2",
