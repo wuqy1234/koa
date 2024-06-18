@@ -16,5 +16,4 @@ const { Op } = require('sequelize');
 
     })
     console.log(JSON.stringify(aa, null, 4));
-
 })()

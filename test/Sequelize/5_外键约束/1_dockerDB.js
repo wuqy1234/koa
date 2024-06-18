@@ -46,12 +46,10 @@ const Foo = sequelize.define('foo', {
     // // 创建一个 Foo 实例，并将 barId 设置为新创建的 Bar 实例的 id
     // const newFoo = await Foo.create({ name: 'Example Foo', barId: newBar.id });
 
+    //外键约束并不像hasOne一样,能够通过findAll查询到关联的Foo实例
+    const aa = await Bar.findAll();
 
-    // const aa=await Foo.findAll({
-    //     attributes:['barId']
-    // });
-
-    // console.log(JSON.stringify(aa,null,2));
+    console.log(JSON.stringify(aa, null, 2));
 
     // 删除 Bar 实例，关联的 Foo 实例也会被自动删除
     // await Bar.destroy({
@@ -60,8 +58,9 @@ const Foo = sequelize.define('foo', {
     //    }
     // });
 
-    const allFoos = await Foo.findAll();
-    console.log(JSON.stringify(allFoos, null, 2)); 
+    // const allFoos = await Foo.findAll();
+    // console.log(JSON.stringify(allFoos, null, 2)); 
+
 })();
 
 module.exports = {
