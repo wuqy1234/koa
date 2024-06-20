@@ -89,17 +89,24 @@ console.log(
     //     userId: user.id
     // })
 
-    //第三种方法
+    //第三种方法foo.createBar()
 
     const user = await User.create({
-        firstName: 'Mick',
+        firstName: 'Mick11111111',
         lastName: 'Broadstone',
     })
-    await user.createProduct({
-        title: 'Chair', userId: user.id
-    });
+    //Product和user关联了,user没有和Product关联,所以会出错
+    // await user.createProduct({
+    //     title: 'Chair', userId: user.id
+    // });
+
+    //修正后:
+    const product = await Product.create({
+        title: 'Chair11111', userId: user.id
+    })
+    
     await user.createAddress({
-        type: 'home',
+        type: 'home111111111',
         line1: '100 Main St.',
         city: 'Austin',
         state: 'TX',
@@ -113,7 +120,7 @@ console.log(
     //         include: Address
     //     })
     //     console.log(JSON.stringify(users, null, 2));
-    // })();
+    })();
 
 
 
