@@ -43,13 +43,14 @@ console.log(
         await sequelize.sync({ alter: true }); // force  alter
         console.log('表创建成功');
     } catch (error) {
-        console.error('创建表时出错:', error); 
+        console.error('创建表时出错:', error);
     }
 })();
 
 
 
 (async () => {
+    //第一种方法
     // await  Product.create({
     //     title: 'Chair',
     //     user: {
@@ -71,6 +72,7 @@ console.log(
     //     }]
     // });
 
+    //第二种方法
     // const user = await User.create({
     //     firstName: 'Mick',
     //     lastName: 'Broadstone',
@@ -87,16 +89,36 @@ console.log(
     //     userId: user.id
     // })
 
-    const users = await User.findAll({
-        include: Address
+    //第三种方法
+
+    const user = await User.create({
+        firstName: 'Mick',
+        lastName: 'Broadstone',
     })
-    console.log(JSON.stringify(users, null, 2));
-})();
+    await user.createProduct({
+        title: 'Chair', userId: user.id
+    });
+    await user.createAddress({
+        type: 'home',
+        line1: '100 Main St.',
+        city: 'Austin',
+        state: 'TX',
+        zip: '78704',
+        userId: user.id
+    });
 
 
 
-module.exports = {
+    //     const users = await User.findAll({
+    //         include: Address
+    //     })
+    //     console.log(JSON.stringify(users, null, 2));
+    // })();
 
 
-};
+
+    module.exports = {
+
+
+    };
 
