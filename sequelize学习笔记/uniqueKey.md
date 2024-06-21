@@ -23,9 +23,17 @@ const User = sequelize.define('User', {
     type: DataTypes.STRING,
     unique: 'compositeIndex' // 定义唯一约束
   },
+    age: {
+    type: DataTypes.INTEGER ,
+    unique: 'compositeIndex' // 定义唯一约束
+  },
   email: {
     type: DataTypes.STRING,
     unique: true // 定义唯一约束
+  },
+  phone:{
+     type:DataTypes.INTEGER ,
+     unique: true
   }
 }, {
   indexes: [
@@ -44,9 +52,9 @@ sequelize.sync()
 
 在上面的例子中：
 
-- username 列有一个名为 compositeIndex 的唯一约束。
-- email 列有一个唯一约束。
-- 通过 indexes 选项，我们定义了一个组合唯一约束，确保 username 和 email 组合在表中是唯一的。
+- username和age 列有一个名为 compositeIndex 的唯一约束，这样就能做唯一复合键了，username和age就是一对唯一复合键了。
+- email 列有一个唯一约束，phone列也有一个唯一约束。
+- 通过 indexes 选项，我们定义了一个组合唯一约束，确保 username 和 email 组合在表中是唯一的，username 和 email 也是一个唯一复合键。phone并不是一个唯一复合键，它只是一个唯一约束，数据库中不能存在相同的手机号码。
 
 2. 在模型定义中使用 uniqueKey 选项
 
@@ -101,7 +109,7 @@ sequelize.sync()
 
 
 
-##### User.belongsToMany(Profile, { through: User_Profiles, uniqueKey: 'my_custom_unique' });请解释
+##### `User.belongsToMany(Profile, { through: User_Profiles, uniqueKey: 'my_custom_unique' });`请解释
 
 
 

@@ -91,41 +91,72 @@ console.log(
 
     //第三种方法foo.createBar()
 
-    const user = await User.create({
-        firstName: 'Mick11111111',
-        lastName: 'Broadstone',
-    })
+    // const user = await User.create({
+    //     firstName: 'Mick11111111',
+    //     lastName: 'Broadstone',
+    // })
+
     //Product和user关联了,user没有和Product关联,所以会出错
     // await user.createProduct({
     //     title: 'Chair', userId: user.id
     // });
 
     //修正后:
-    const product = await Product.create({
-        title: 'Chair11111', userId: user.id
+    // const product = await Product.create({
+    //     title: 'Chair11111', userId: user.id
+    // })
+
+    // await user.createAddress({
+    //     type: 'home111111111',
+    //     line1: '100 Main St.',
+    //     city: 'Austin',
+    //     state: 'TX',
+    //     zip: '78704',
+    //     userId: user.id
+    // });
+
+    //第四种创建方法
+    const user = await User.create({
+        firstName: 'Mick11111111',
+        lastName: 'Broadstone',
     })
-    
-    await user.createAddress({
-        type: 'home111111111',
+    const product = await Product.create({
+        title: 'Chair11111',
+        // userId: user.id
+    })
+    const addresses = await Address.create({
+        type: 'home',
         line1: '100 Main St.',
         city: 'Austin',
         state: 'TX',
         zip: '78704',
-        userId: user.id
-    });
+        // userId: user.id
+    })
+    const addresses1 = await Address.create({
+        type: 'home1',
+        line1: '100 Main St.',
+        city: 'Austin',
+        state: 'TX',
+        zip: '78704',
+        // userId: user.id
+    })
 
+    await product.setUser(user);
+    // set和add都能建立关联关系,并更新到数据库。
+    // await user.setAddresses([addresses, addresses1]);
+    await user.addAddresses([addresses, addresses1]);
 
 
     //     const users = await User.findAll({
     //         include: Address
     //     })
     //     console.log(JSON.stringify(users, null, 2));
-    })();
+})();
 
 
 
-    module.exports = {
+module.exports = {
 
 
-    };
+};
 

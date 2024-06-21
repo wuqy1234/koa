@@ -29,7 +29,7 @@ const [affectedRows] = await Product.update(
 
 
 
-*// 如果没有任何记录匹配 { id: productId, version: product.version }，affectedRows 会是 0*
+*如果没有任何记录匹配 `{ id: productId, version: product.version }，affectedRows `会是 0*
 
 \### 2. 没有变化
 
@@ -47,7 +47,7 @@ const [affectedRows] = await Product.update(
 
 
 
-*// 如果现有记录的 stock 和 version 已经是相同的值，affectedRows 可能会是 0*
+*如果现有记录的 `stock `和` version `已经是相同的值，`affectedRows` 可能会是 0*
 
 \### 3. 数据库约束
 
@@ -88,7 +88,7 @@ console.log(affectedRows); *// 输出 0*
 
 
 
-\#### 示例 2: 没有变化
+\#### 示例 2: 没有变化，修改的数据和数据库中的数据是一样的，所以不会引起变化。
 
 ```javascript
 const [affectedRows] = await Product.update(

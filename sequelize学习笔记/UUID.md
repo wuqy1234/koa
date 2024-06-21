@@ -44,7 +44,7 @@ sequelize.sync()
 
 
 
-### 存储为 CHAR(36)
+### 存储为 CHAR(36)，36位字符串数据
 
 如果你选择将 UUID 存储为 CHAR(36)，你可以这样定义模型：
 
@@ -66,7 +66,7 @@ const MyModel = sequelize.define('MyModel', {
 
 
 
-### 存储为 BINARY(16)
+### 存储为 BINARY(16)，16进制的数据
 
 如果你选择将 UUID 存储为 BINARY(16)，你可以这样定义模型：
 
@@ -78,9 +78,10 @@ const MyModel = sequelize.define('MyModel', {
     primaryKey: true,
     get() {
       const rawValue = this.getDataValue('id');
-      return rawValue ? rawValue.toString('hex') : null;
+      return rawValue ? rawValue.toString('hex') : null;//hex:十六进制
     },
     set(value) {
+       // replace(/-/g, '') 把所有的'-'改为空，再转换为十六进制的数据
       this.setDataValue('id', Buffer.from(value.replace(/-/g, ''), 'hex'));
     }
   },
@@ -95,41 +96,14 @@ const MyModel = sequelize.define('MyModel', {
 
 虽然 MySQL 没有直接的 UUID 数据类型，但我们可以通过 CHAR(36) 或 BINARY(16) 来存储 UUID。在 Sequelize 中，可以使用 DataTypes.UUID 来定义 UUID 字段，并根据需要选择合适的存储方式。希望这些信息对你有帮助！如果还有其他问题，请随时问我。
 
-### wu qy, [2024/6/12 19:51]
+### 
 
 Sequelize会自动生成UUID，然后写入MySQL数据库吗？
 
-### mybot899, [2024/6/12 19:51]
-
 是的，Sequelize 可以自动生成 UUID 并写入 MySQL 数据库。你可以通过使用 DataTypes.UUID 和 defaultValue 选项来实现这一点。以下是一个完整的示例，展示了如何配置 Sequelize 自动生成 UUID 并将其写入 MySQL 数据库：
 
-### 1. 安装 Sequelize 和 MySQL 驱动
 
-首先，确保你已经安装了 Sequelize 和 MySQL 驱动：
-
-```sh
-npm install sequelize mysql2
-```
-
-
-
-
-### 2. 配置 Sequelize 连接
-
-接下来，配置 Sequelize 连接到你的 MySQL 数据库：
-
-```js
-const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = new Sequelize('database', 'username', 'password', {
-  host: 'localhost',
-  dialect: 'mysql' // 可以根据需要改为 'mariadb'
-});
-```
-
-
-
-
-### 3. 定义模型并使用 UUID
+### 定义模型并使用 UUID
 
 定义一个模型，并使用 DataTypes.UUID 和 defaultValue 选项来自动生成 UUID：
 
@@ -153,25 +127,7 @@ const MyModel = sequelize.define('MyModel', {
 
 在这个示例中，id 字段被定义为 UUID 类型，并且默认值设置为 DataTypes.UUIDV4，这意味着在创建新记录时，Sequelize 会自动生成一个 UUID v4 并将其写入数据库。
 
-### 4. 同步模型并创建记录
-
-最后，同步模型并创建一条新记录，以验证 UUID 是否自动生成并写入数据库：
-
-```js
-sequelize.sync({ force: true })
-  .then(async () => {
-    console.log('Database & tables created!');
-    // 创建新记录
-    const newRecord = await MyModel.create({ name: 'Example Name' });
-    console.log('New record created:', newRecord.toJSON());
-      })
-  .catch(err => console.error('Unable to create database & tables:', err));
-```
-
-
-
 ### 总结
 
 通过上述步骤，Sequelize 会自动生成 UUID 并将其写入 MySQL 数据库。你可以使用 DataTypes.UUID 和 defaultValue: DataTypes.UUIDV4 或 DataTypes.UUIDV1 来实现这一点。这样，你就不需要手动生成和管理 UUID 了，Sequelize 会为你处理这一切。
 
-如果你有其他问题或需要更多帮助，请随时告诉我！
