@@ -15,6 +15,7 @@ const {
  * 注册接口
  */
 // GET /users/
+//在微信小程序中wx.cloud.callContainer,get请求方法是通过params传送数据的,post是通过body传送数据的。
 router.post('/register', userValidator, SensitiveWords, verifyUser, crpytPassword, register)
 //预先颁发了token,不像之前自己设计的,只有登录成功了在颁发token,可以改造login接口,在其后面添加await next方法
 router.get('/login', userValidator, verifyLogin, login)

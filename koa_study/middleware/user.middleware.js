@@ -15,12 +15,16 @@ const { JWT_SECRET } = require('../config/config.default')
 
 const bcrypt = require('bcryptjs');
 
-
+//在微信小程序中wx.cloud.callContainer,get请求方法是通过params传送数据的,post是通过body传送数据的。
 //判断用户信息是否为空
 const userValidator = async (ctx, next) => {
-    const { username, password } = ctx.request.body
-    // const { username, password } = ctx.params
-    // console.log(username, password, 'kkkkkkkkkkkkkkkkk')
+    let { username, password } = ctx.request.body
+    if (!username || !password) {
+        username = ctx.params.username
+        password = ctx.params.password
+    }
+    console.log(username, password, 'ddddddddddddddddd');
+
     // 合法性
     if (!username || !password) {
         console.error('用户名或密码为空', ctx.request.body)
@@ -33,7 +37,11 @@ const userValidator = async (ctx, next) => {
 }
 //判断用户是否存在
 const verifyUser = async (ctx, next) => {
-    const { username } = ctx.request.body
+    let { username, password } = ctx.request.body
+    if (!username || !password) {
+        username = ctx.params.username
+        password = ctx.params.password
+    }
 
     // if (await getUerInfo({ user_name })) {
     //   ctx.app.emit('error', userAlreadyExited, ctx)
@@ -60,7 +68,11 @@ const verifyUser = async (ctx, next) => {
 }
 //给密码加密
 const crpytPassword = async (ctx, next) => {
-    const { password } = ctx.request.body
+    let { username, password } = ctx.request.body
+    if (!username || !password) {
+        username = ctx.params.username
+        password = ctx.params.password
+    }
 
     const salt = bcrypt.genSaltSync(10)
     // hash保存的是 密文
@@ -76,7 +88,11 @@ const crpytPassword = async (ctx, next) => {
 //验证登录,和这个verifyUser中间件差不多,查询数据库,解密密码,然后和前端传来的密码进行对比
 const verifyLogin = async (ctx, next) => {
     // 1. 判断用户是否存在(不存在:报错)
-    const { username, password } = ctx.request.body
+    let { username, password } = ctx.request.body
+    if (!username || !password) {
+        username = ctx.params.username
+        password = ctx.params.password
+    }
 
     try {
         const res = await getUerInfo({ user_name: username })
@@ -128,7 +144,11 @@ const auth = async (ctx, next) => {
 
 
 const SensitiveWords = async (ctx, next) => {
-    const { username } = ctx.request.body
+    let { username, password } = ctx.request.body
+    if (!username || !password) {
+        username = ctx.params.username
+        password = ctx.params.password
+    }
     const sensitiveWords = ['敏感词1', '敏感词2']
     for (const word of sensitiveWords) {
 
