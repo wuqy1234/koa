@@ -18,9 +18,9 @@ const bcrypt = require('bcryptjs');
 
 //判断用户信息是否为空
 const userValidator = async (ctx, next) => {
-    // const { username, password } = ctx.request.body
-    const { username, password } = ctx.params
-    console.log(username, password, 'kkkkkkkkkkkkkkkkk')
+    const { username, password } = ctx.request.body
+    // const { username, password } = ctx.params
+    // console.log(username, password, 'kkkkkkkkkkkkkkkkk')
     // 合法性
     if (!username || !password) {
         console.error('用户名或密码为空', ctx.request.body)
