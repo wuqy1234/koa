@@ -15,7 +15,7 @@ const {
  * 注册接口
  */
 // GET /users/
-router.get('/register', userValidator, SensitiveWords, verifyUser, crpytPassword, register)
+router.post('/register', userValidator, SensitiveWords, verifyUser, crpytPassword, register)
 //预先颁发了token,不像之前自己设计的,只有登录成功了在颁发token,可以改造login接口,在其后面添加await next方法
 router.get('/login', userValidator, verifyLogin, login)
 
@@ -24,6 +24,6 @@ router.patch('/', auth, (ctx, next) => {
     console.log(ctx.state.user)
     ctx.body = '修改密码成功'
 })
-router.get('/test',upFile)
+router.get('/test', upFile)
 
 module.exports = router
