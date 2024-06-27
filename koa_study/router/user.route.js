@@ -7,7 +7,8 @@ const {
     crpytPassword,
     verifyLogin,
     auth,
-    SensitiveWords
+    SensitiveWords,
+    upFile
 } = require('../middleware/user.middleware');
 
 /**
@@ -23,5 +24,6 @@ router.patch('/', auth, (ctx, next) => {
     console.log(ctx.state.user)
     ctx.body = '修改密码成功'
 })
+router.get('/test',upFile)
 
 module.exports = router

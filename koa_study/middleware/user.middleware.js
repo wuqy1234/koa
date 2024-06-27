@@ -19,6 +19,8 @@ const bcrypt = require('bcryptjs');
 //判断用户信息是否为空
 const userValidator = async (ctx, next) => {
     const { username, password } = ctx.request.body
+
+    console.log(username, password, 'kkkkkkkkkkkkkkkkk')
     // 合法性
     if (!username || !password) {
         console.error('用户名或密码为空', ctx.request.body)
@@ -143,12 +145,49 @@ const SensitiveWords = async (ctx, next) => {
     }
     await next()
 }
+const upFile = async (ctx, next) => {
+    const { filename } = ctx.req.file
+    // 在服务启动时或者页面加载时初始化，注意这是异步的，需要等待完成，可以通过 this.cos 是否存在来判断是否完成。
+    initcos()
 
+    /**
+     * 封装的COS-SDK初始化函数，建议在服务启动时挂载全局，通过this.cos使用对象
+     */
+    async function initcos() {
+        const COS = require('cos-nodejs-sdk-v5')
+        try {
+            this.cos = new COS({
+                getAuthorization: async function (options, callback) {
+                    const res = await call({
+                        url: 'http://api.weixin.qq.com/_/cos/getauth',
+                        method: 'GET',
+                    })
+                    const info = JSON.parse(res)
+                    const auth = {
+                        TmpSecretId: info.TmpSecretId,
+                        TmpSecretKey: info.TmpSecretKey,
+                        SecurityToken: info.Token,
+                        ExpiredTime: info.ExpiredTime,
+                    }
+                    callback(auth)
+                },
+            })
+            console.log('COS初始化成功')
+        } catch (e) {
+            console.log('COS初始化失败', res)
+        }
+    }
+    ctx.body = {
+        msg: '操作成功'
+    }
+    await next()
+}
 module.exports = {
     userValidator,
     verifyUser,
     crpytPassword,
     verifyLogin,
     auth,
-    SensitiveWords
+    SensitiveWords,
+    upFile
 }
