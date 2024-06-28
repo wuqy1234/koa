@@ -9,6 +9,7 @@ COPY package*.json ./
 # 在容器内运行npm install，安装项目依赖
 RUN npm install
 
+RUN apk add ca-certificates
 # 安装bash，因为Alpine Linux默认不包含bash
 #RUN apk add --no-cache bash
 
@@ -16,6 +17,8 @@ RUN npm install
 EXPOSE 3001
 # 设置环境变量TZ为Asia/Shanghai，确保容器内的时区与上海一致
 ENV TZ=Asia/Shanghai
+
+ENV NODE_EXTRA_CA_CERTS=/app/cert/certificate.crt
 # 容器启动时运行'npm run dev'命令，通常用于开发模式，启动服务器并热重载
 CMD ["npm", "run", "dev"]
 
