@@ -4,7 +4,7 @@
       "name": "koa-1",
       "domain": "",
       "ip": "",
-      "containerId": "842303f26459a0593ac13e5b9201163285910383d54b41b8b7bb82c106c76c44"
+      "containerId": "ae66097b12141fb503abab509104baacf105413db3a00fa90148f2a098c1bd11"
     }
   ],
   "config": {
@@ -13,7 +13,7 @@
       "buildDir": "",
       "containerPort": 3001,
       "envParams": {
-        "MYSQL_ADDRESS": "127.0.0.1:3306",
+        "MYSQL_ADDRESS": "10.2.114.172:3306",
         "MYSQL_USERNAME": "root",
         "MYSQL_PASSWORD": "Wuqy199511"
       },
