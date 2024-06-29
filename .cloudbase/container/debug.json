@@ -3,8 +3,7 @@
     {
       "name": "koa-1",
       "domain": "",
-      "ip": "",
-      "containerId": "ae66097b12141fb503abab509104baacf105413db3a00fa90148f2a098c1bd11"
+      "ip": ""
     }
   ],
   "config": {

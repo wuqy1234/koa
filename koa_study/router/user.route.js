@@ -31,6 +31,30 @@ router.patch('/', auth, (ctx, next) => {
     console.log(ctx.state.user)
     ctx.body = '修改密码成功'
 })
-router.get('/test', upFile)
+
+
+router.get('/test', (ctx, next) => {
+
+    const axios = require('axios');
+
+    axios.post('http://api.weixin.qq.com/wxa/msg_sec_check',
+        {
+            key1: 'value1',
+            key2: 'value2'
+        },
+        {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+    )
+        .then(response => {
+            ctx.body = response.data; // 打印响应数据
+        })
+        .catch(error => {
+            ctx.body = error;
+        });
+
+})
 
 module.exports = router

@@ -25,7 +25,7 @@ axios.get('https://api.example.com/data')
 ### POST 请求
 
 ```js
-taxios.post('https://api.example.com/submit', 
+axios.post('https://api.example.com/submit', 
   { 
     key1: 'value1',
     key2: 'value2'
