@@ -2,8 +2,9 @@
   "containers": [
     {
       "name": "koa-1",
-      "domain": "",
-      "ip": ""
+      "domain": "eoixleqv.koa-q901.4om1h0kq.3kgaaf8f.com",
+      "ip": "10.0.0.123",
+      "containerId": "1b76a329edbe9c668188aa78f755c983d51921ce57b1b1b16ee794c9ddc67d2e"
     }
   ],
   "config": {
@@ -12,9 +13,9 @@
       "buildDir": "",
       "containerPort": 3001,
       "envParams": {
-        "MYSQL_ADDRESS": "10.2.114.172:3306",
         "MYSQL_USERNAME": "root",
-        "MYSQL_PASSWORD": "Wuqy199511"
+        "MYSQL_PASSWORD": "Wuqy199511",
+        "MYSQL_ADDRESS": "10.2.114.172:3306"
       },
       "cpu": 0.5,
       "mem": 1,
