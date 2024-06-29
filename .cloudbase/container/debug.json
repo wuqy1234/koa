@@ -1,1 +1,31 @@
-{"containers":[],"config":{}}
+{
+  "containers": [
+    {
+      "name": "koa-1",
+      "domain": "",
+      "ip": "",
+      "containerId": "842303f26459a0593ac13e5b9201163285910383d54b41b8b7bb82c106c76c44"
+    }
+  ],
+  "config": {
+    "koa-1": {
+      "dockerfilePath": "Dockerfile",
+      "buildDir": "",
+      "containerPort": 3001,
+      "envParams": {
+        "MYSQL_ADDRESS": "127.0.0.1:3306",
+        "MYSQL_USERNAME": "root",
+        "MYSQL_PASSWORD": "Wuqy199511"
+      },
+      "cpu": 0.5,
+      "mem": 1,
+      "policyType": "cpu",
+      "policyThreshold": 60,
+      "customLogs": "stdout",
+      "initialDelaySeconds": 2,
+      "minNum": 0,
+      "maxNum": 50,
+      "remark": ""
+    }
+  }
+}

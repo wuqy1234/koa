@@ -16,7 +16,7 @@ const seq = new Sequelize(MYSQL_DB, MYSQL_USER, MYSQL_PWD, {
     //禁用日志,避免输出内部日志
     logging: false
 });
-
+console.log(MYSQL_HOST, 'oooooooooooooooooooooo');
 seq
     .authenticate()
     .then(() => {
@@ -27,5 +27,5 @@ seq
     })
 
 
-    
+
 module.exports = seq

@@ -8,7 +8,7 @@ COPY koa_study /app
 COPY package*.json ./
 # 在容器内运行npm install，安装项目依赖
 RUN npm install
-
+#安装CA证书（Certificate Authority certificates）的包。
 RUN apk add ca-certificates
 # 安装bash，因为Alpine Linux默认不包含bash
 #RUN apk add --no-cache bash
@@ -17,7 +17,7 @@ RUN apk add ca-certificates
 EXPOSE 3001
 # 设置环境变量TZ为Asia/Shanghai，确保容器内的时区与上海一致
 ENV TZ=Asia/Shanghai
-
+#信任根证书,设置路径。
 ENV NODE_EXTRA_CA_CERTS=/app/cert/certificate.crt
 # 容器启动时运行'npm run dev'命令，通常用于开发模式，启动服务器并热重载
 CMD ["npm", "run", "dev"]
