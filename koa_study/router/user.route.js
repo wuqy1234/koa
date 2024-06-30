@@ -8,7 +8,7 @@ const {
     verifyLogin,
     auth,
     SensitiveWords,
-    upFile
+    testdb,
 } = require('../middleware/user.middleware');
 
 /**
@@ -33,10 +33,25 @@ router.patch('/', auth, (ctx, next) => {
 })
 
 
-router.patch('/test', (ctx, next) => {
+router.post('/test', async (ctx, next) => {
 
-    ctx.body = { msg: "你好,这是一个测试,微信小程序后台1111" };
+    const body = ctx.request.body;
+    console.log(JSON.stringify(body, null, 2), 'ddddddddddd')
 
-})
+    // const headers = ctx.request.headers;
+    // console.log(JSON.stringify(headers, null, 2), '11111111111111111111')
+    // const headers2 = ctx.headers;
+    // console.log(JSON.stringify(headers2, null, 2), '2222222222222222222222')
+    // ctx.body = {  }
+    // ctx.body = { msg: "你好,这是一个测试,微信小程序后台2222" };
+    // Object.assign(ctx.body, { msg: "你好,这是一个测试,微信小程序后台2222" })
+
+
+    await next()
+    // Object.assign(ctx.body, { msg: "你好,这是一个测试,微信小程序后台3333333" })
+    // ctx.body = { msg: "你好,这是一个测试,微信小程序后台1111" }
+    // console.log(JSON.stringify(ctx.body, null, 2), 'sssssssssssss')
+
+}, testdb)
 
 module.exports = router

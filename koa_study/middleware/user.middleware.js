@@ -145,42 +145,63 @@ const SensitiveWords = async (ctx, next) => {
     }
     await next()
 }
-const upFile = async (ctx, next) => {
-    const { filename } = ctx.req.file
-    // 在服务启动时或者页面加载时初始化，注意这是异步的，需要等待完成，可以通过 this.cos 是否存在来判断是否完成。
-    initcos()
 
-    /**
-     * 封装的COS-SDK初始化函数，建议在服务启动时挂载全局，通过this.cos使用对象
-     */
-    async function initcos() {
-        const COS = require('cos-nodejs-sdk-v5')
-        try {
-            this.cos = new COS({
-                getAuthorization: async function (options, callback) {
-                    const res = await call({
-                        url: 'http://api.weixin.qq.com/_/cos/getauth',
-                        method: 'GET',
-                    })
-                    const info = JSON.parse(res)
-                    const auth = {
-                        TmpSecretId: info.TmpSecretId,
-                        TmpSecretKey: info.TmpSecretKey,
-                        SecurityToken: info.Token,
-                        ExpiredTime: info.ExpiredTime,
-                    }
-                    callback(auth)
-                },
-            })
-            console.log('COS初始化成功')
-        } catch (e) {
-            console.log('COS初始化失败', res)
-        }
+/**
+ * 封装的COS-SDK初始化函数，建议在服务启动时挂载全局，通过this.cos使用对象
+ */
+async function initcos() {
+    const COS = require('cos-nodejs-sdk-v5')
+    try {
+        this.cos = new COS({
+            getAuthorization: async function (options, callback) {
+                const res = await call({
+                    url: 'https://api.weixin.qq.com/wxa/business/getuserphonenumber',
+                    method: 'POST',
+                })
+                const info = JSON.parse(res)
+                const auth = {
+                    TmpSecretId: info.TmpSecretId,
+                    TmpSecretKey: info.TmpSecretKey,
+                    SecurityToken: info.Token,
+                    ExpiredTime: info.ExpiredTime,
+                }
+                callback(auth)
+            },
+        })
+        console.log('COS初始化成功')
+    } catch (e) {
+        console.log('COS初始化失败', res)
     }
-    ctx.body = {
-        msg: '操作成功'
-    }
-    await next()
+}
+
+
+const testdb = async (ctx, next) => {
+
+
+    const { code } = ctx.request.body
+
+    console.log(code, 'mmmmmmmmmmmmmmmmm');
+
+    const axios = require('axios');
+
+    const aa = await axios.post('http://api.weixin.qq.com/wxa/business/getuserphonenumber', {
+        // openid: `${ctx.headers['x-wx-openid']}`, // 可以从请求的header中直接获取 req.headers['x-wx-openid']
+        // version: 2,
+        // scene: 2,
+        // content: `${username}`
+        code: `${code}`,
+    })
+    // .then(response => {
+
+    //     console.log('检测成功,接口返回内容',response.data);//ctx.body=response.data
+    //     return response.data;
+    // })
+    // .catch(error => {
+    //     console.error('请求出错', error);
+    // });
+    console.log(aa.data, 'hhhhhhhhhhhhhhhhhhhhh')
+    ctx.body = aa.data
+    // Object.assign(ctx.body, aa.data)
 }
 module.exports = {
     userValidator,
@@ -189,5 +210,5 @@ module.exports = {
     verifyLogin,
     auth,
     SensitiveWords,
-    upFile
+    testdb,
 }
