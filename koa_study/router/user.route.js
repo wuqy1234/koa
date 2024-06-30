@@ -26,16 +26,16 @@ router.post('/register', userValidator, SensitiveWords, verifyUser, crpytPasswor
 //预先颁发了token,不像之前自己设计的,只有登录成功了在颁发token,可以改造login接口,在其后面添加await next方法
 router.post('/login', userValidator, verifyLogin, login)
 
-// 修改密码接口,除了get,post,delete,put等方法，还有patch,等等20个请求方法
+// ?修改密码接口,除了get,post,delete,put等方法，还有patch,等等20个请求方法
 router.patch('/', auth, (ctx, next) => {
     console.log(ctx.state.user)
     ctx.body = '修改密码成功'
 })
 
 
-router.get('/test', (ctx, next) => {
+router.patch('/test', (ctx, next) => {
 
-    ctx.body = { msg: "你好,这是一个测试" };
+    ctx.body = { msg: "你好,这是一个测试,微信小程序后台1111" };
 
 })
 
