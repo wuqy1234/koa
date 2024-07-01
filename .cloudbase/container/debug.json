@@ -3,8 +3,9 @@
     {
       "name": "koa-1",
       "domain": "eoixleqv.koa-q901.4om1h0kq.3kgaaf8f.com",
-      "ip": "10.0.0.123",
-      "mode": "compose"
+      "ip": "10.0.0.8",
+      "mode": "compose",
+      "containerId": "b8a522a8d1d134c864a61c5a28f0137935c90389f9aed6506fa6421f05b04a22"
     }
   ],
   "config": {

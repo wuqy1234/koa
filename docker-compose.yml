@@ -11,7 +11,7 @@ services:
       - '27081:3001'
     container_name: wxcloud_koa-1
     labels:
-      - wxPort=40461
+      - wxPort=27082
       - hostPort=27081
       - wxcloud=koa-1
       - role=container
