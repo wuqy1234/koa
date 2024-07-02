@@ -88,3 +88,35 @@ fetchData();
 ```
 
 以上示例涵盖了基本的 GET 和 POST 请求，以及如何使用拦截器和异步等待来处理请求和响应。Axios 提供了丰富的配置选项和强大的功能，能够满足大多数网络请求的需求。
+
+
+
+**`axios`库发送HTTP请求返回的数据格式为对象:**
+
+```javascript
+async function call(obj) {
+  try {
+    const response = await axios({
+      url: obj.url,
+      method: obj.method || 'post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: obj.data || {}
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+```
+
+在JavaScript中，`axios`库发送HTTP请求，其返回的`response`是一个包含多个属性的对象，其中最重要的是`data`属性，该属性包含了服务器响应的数据。这取决于服务器返回的内容，`response.data`可能是对象、数组、字符串等类型。如果服务器返回的是JSON格式的数据且被正确解析，那么`response.data`将会是一个JavaScript对象或数组。因此，`response`本身是一个对象，而`response.data`可能是一个对象。
+
+如果是request而不是axios返回的是字符串吗，需要使用JSON.parse转换为对象，对吗?
+
+```javascript
+const auth = JSON.parse(authres)
+```
+
+是的，如果你使用原生的`XMLHttpRequest`或`fetch`等方法进行HTTP请求，并且服务器返回的是JSON格式的字符串，那么你需要使用`JSON.parse()`方法来将这个字符串转换成JavaScript对象。
