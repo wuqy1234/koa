@@ -1,3 +1,5 @@
+### 可读流
+
 ```javascript
  Body: fs.createReadStream(filepath)
 ```
@@ -165,3 +167,112 @@ readStream.on('error', (err) => {
 > 
 > 手机的运行内存和电脑的内存在功能和作用上是相同的，都用于临时存储和快速访问当前正在使用的数据和程序。它们的主要区别在于容量和具体的技术规范，但本质上都是 RAM（随机存取存储器）。
 > ```
+
+### 可读流和分块上传
+
+分块上传和可读流上传有什么区别?
+
+分块上传和可读流上传是两种常见的数据上传方式，特别是在处理大文件或数据流时。以下是它们的区别和各自的特点：
+
+\### 分块上传（Chunked Upload）
+
+定义：分块上传是将大文件分成多个较小的块（chunk）进行上传，每个块单独上传，最后在服务器端进行合并。
+
+特点：
+
+1. 断点续传：如果上传过程中断，可以从上次中断的地方继续上传，而不必重新开始。
+
+1. 并行上传：可以同时上传多个块，提高上传速度。
+
+1. 错误处理：如果某个块上传失败，只需重新上传该块，而不必重新上传整个文件。
+
+1. 内存占用小：每次只处理一个块，减少了内存占用。
+
+适用场景：
+
+- 大文件上传
+
+- 网络不稳定的环境
+
+- 需要断点续传的场景
+
+示例：
+
+```javascript
+// 分块上传示例
+const file = document.getElementById('fileInput').files[0];
+const chunkSize = 1024 * 1024; // 1MB
+let offset = 0;
+
+while (offset < file.size) {
+  const chunk = file.slice(offset, offset + chunkSize);
+  uploadChunk(chunk);
+  offset += chunkSize;
+}
+
+function uploadChunk(chunk) {
+  // 上传块的逻辑
+}
+```
+
+\### 可读流上传（Readable Stream Upload）
+
+定义：可读流上传是通过流的方式逐步读取文件或数据，并将其上传到服务器。数据以流的形式传输，不需要将整个文件加载到内存中。
+
+特点：
+
+1. 流式处理：数据以流的形式逐步读取和上传，不需要一次性加载整个文件。
+
+1. 内存占用小：仅处理当前读取的部分数据，内存占用较小。
+
+1. 实时性：适用于实时数据传输，如视频流、音频流等。
+
+1. 简化大文件处理：适合处理大文件或无限数据流。
+
+适用场景：
+
+- 实时数据传输
+
+- 大文件上传
+
+- 流媒体上传（如视频、音频）
+
+示例：
+
+```javascript
+// 可读流上传示例（Node.js）
+const fs = require('fs');
+const http = require('http');
+
+const fileStream = fs.createReadStream('path/to/large/file');
+const options = {
+  hostname: 'example.com',
+  port: 80,
+  path: '/upload',
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/octet-stream'
+  }
+};
+
+const req = http.request(options, (res) => {
+  console.log(`STATUS: ${res.statusCode}`);
+  res.on('data', (chunk) => {
+    console.log(`BODY: ${chunk}`);
+  });
+});
+
+fileStream.pipe(req);
+
+fileStream.on('end', () => {
+  req.end();
+});
+```
+
+\### 总结
+
+- 分块上传：将文件分成多个小块逐个上传，适合大文件和需要断点续传的场景。
+
+- 可读流上传：通过流的方式逐步读取和上传数据，适合实时数据传输和大文件处理。
+
+选择哪种方式取决于具体的应用场景和需求。如果你有更多问题或需要进一步的解释，请随时问我！

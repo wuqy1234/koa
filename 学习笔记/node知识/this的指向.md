@@ -1,0 +1,1 @@
+在一个文件中this的指向是全局`global`对象，在`router`的this指向路由，因为`router.router()`是中间件，挂载在`app.user()`中的，`app.listen()`的`this`指向的是`service`对象，即服务器对象。

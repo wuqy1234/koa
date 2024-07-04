@@ -120,3 +120,82 @@ const auth = JSON.parse(authres)
 ```
 
 是的，如果你使用原生的`XMLHttpRequest`或`fetch`等方法进行HTTP请求，并且服务器返回的是JSON格式的字符串，那么你需要使用`JSON.parse()`方法来将这个字符串转换成JavaScript对象。
+
+
+
+#### Ajax和axios有什么区别吗?
+
+Ajax（Asynchronous JavaScript and XML）和 Axios 都是用于在客户端与服务器之间进行异步通信的技术和工具，但它们有一些显著的区别。以下是它们的详细对比：
+
+\### Ajax
+
+定义：Ajax 是一种技术集合，用于在不重新加载整个网页的情况下，从服务器请求数据并在网页上进行更新。它通常使用原生的 `XMLHttpRequest` 对象来实现。
+
+特点：
+
+1. 原生支持：Ajax 是浏览器原生支持的技术，不需要额外的库。
+
+1. 复杂性：使用原生的 `XMLHttpRequest` 进行 Ajax 请求可能比较复杂，需要处理各种状态变化、事件监听等。
+
+1. 兼容性：原生的 Ajax 需要处理不同浏览器的兼容性问题。
+
+示例：
+
+```javascript
+// 使用原生 XMLHttpRequest 进行 Ajax 请求
+const xhr = new XMLHttpRequest();
+xhr.open('GET', 'https://api.example.com/data', true);
+xhr.onreadystatechange = function() {
+  if (xhr.readyState === 4 && xhr.status === 200) {
+    console.log(JSON.parse(xhr.responseText));
+  }
+};
+xhr.send();
+```
+
+\### Axios
+
+定义：Axios 是一个基于 Promise 的 HTTP 客户端，用于在浏览器和 Node.js 中发送 HTTP 请求。它对 `XMLHttpRequest` 进行了封装，提供了更简洁的 API。
+
+特点：
+
+1. 基于 Promise：Axios 使用 Promise 进行异步操作，使得代码更加简洁和易于阅读。
+
+1. 更好的语法：Axios 提供了更简洁和直观的 API，简化了请求和响应处理。
+
+1. 自动转换：Axios 自动将 JSON 数据转换为 JavaScript 对象，并处理其他常见的数据格式。
+
+1. 内置功能：Axios 提供了许多内置功能，如请求和响应拦截器、取消请求、超时设置等。
+
+1. 跨平台：Axios 可以在浏览器和 Node.js 环境中使用。
+
+示例：
+
+```javascript
+// 使用 Axios 进行 HTTP 请求
+axios.get('https://api.example.com/data')
+  .then(response => {
+    console.log(response.data);
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+```
+
+\### 对比总结
+
+- 复杂性：Ajax 使用原生 `XMLHttpRequest` 可能比较复杂，需要处理各种状态变化和事件监听；而 Axios 提供了更简洁和直观的 API。
+
+- 异步处理：Ajax 需要手动处理异步操作，而 Axios 基于 Promise，异步处理更加简洁。
+
+- 功能：Axios 提供了许多内置功能，如请求和响应拦截器、取消请求、超时设置等，而这些功能在使用原生 Ajax 时需要手动实现。
+
+- 兼容性：Axios 处理了许多浏览器兼容性问题，而使用原生 Ajax 需要自己处理这些问题。
+
+- 数据处理：Axios 自动处理 JSON 数据的转换，而原生 Ajax 需要手动处理。
+
+\### 何时使用
+
+- Ajax：如果你不想引入额外的库并且只需要进行简单的请求，原生的 Ajax 可能是一个不错的选择。
+
+- Axios：如果你需要进行复杂的请求处理、使用 Promise 以及需要更多的内置功能，Axios 是一个更好的选择。
