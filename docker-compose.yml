@@ -9,7 +9,7 @@ services:
       - /app/node_modules
     ports:
       - '27081:3001'
-    container_name: wxcloud_koa-1
+    container_name: wxcloud_koa
     labels:
       - wxPort=27082
       - hostPort=27081

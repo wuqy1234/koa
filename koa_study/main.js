@@ -7,7 +7,6 @@ app.listen(APP_PORT, () => {
     console.log(`服务器运行在: "http://localhost:${APP_PORT}"`)
 })
 
-
 /**
  * 流程分析:
  * 1. 配置环境变量
