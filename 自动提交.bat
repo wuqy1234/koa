@@ -5,8 +5,12 @@ chcp 65001 >nul
 
 :: 设置你的仓库目录
 ::以下是set REPO_DIR="C:\Users\86166\Desktop\koa-1"的相对路径
-::set REPO_DIR=%~dp0..\koa-1
-set REPO_DIR="C:\Users\86166\Desktop\koa-1"
+::自动获取文件的路径
+set REPO_DIR=%~dp0
+::去除最后一个\
+if "!REPO_DIR:~-1!" == "\" (
+    set "REPO_DIR=!REPO_DIR:~0,-1!"
+)
 :: 切换到仓库目录
 cd /d "%REPO_DIR%"
 
