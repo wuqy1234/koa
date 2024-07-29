@@ -4,6 +4,7 @@ setlocal enabledelayedexpansion
 chcp 65001 >nul
 
 :: 设置你的仓库目录
+::以下是set REPO_DIR="C:\Users\86166\Desktop\koa-1"的相对路径
 set REPO_DIR=%~dp0..\koa-1
 
 :: 切换到仓库目录
