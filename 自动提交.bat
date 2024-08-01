@@ -31,7 +31,7 @@ for /f "delims=" %%i in ('git status --porcelain') do (
         git commit -m "!COMMIT_MSG!"
 
         :: 推送更改到远程仓库
-        git push origin main
+        git push 
     )
 )
 
