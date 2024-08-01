@@ -35,26 +35,11 @@ for /f "delims=" %%i in ('git status --porcelain') do (
     )
 )
 
-:: 推送更改到远程仓库
-(
-  git push origin main 2>NUL
-) >push_output.txt
-
-:: 检查推送结果
-findstr /C:"Everything up-to-date" push_output.txt >NUL
-if %ERRORLEVEL% EQU 0 (
-  echo 推送成功
+if "%ERRORLEVEL%" NEQ "0" (
+    echo 提交失败
 ) else (
-  findstr /C:"To https://github.com/wuqy1234/koatest.git" push_output.txt >NUL
-  if %ERRORLEVEL% EQU 0 (
-    echo 推送成功 (已有最新版本)
-  ) else (
-    type push_output.txt
-    echo 推送失败，请检查错误信息
-  )
+    echo 提交成功  
 )
-
-del push_output.txt
  
 :: 结束脚本
 endlocal
