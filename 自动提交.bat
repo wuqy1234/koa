@@ -34,6 +34,12 @@ for /f "delims=" %%i in ('git status --porcelain') do (
         git push 
     )
 )
+
+if "%ERRORLEVEL%" NEQ "0" (
+    echo 提交失败
+) else (
+    echo 提交成功
+)
  
 :: 结束脚本
 endlocal
