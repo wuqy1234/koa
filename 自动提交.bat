@@ -38,7 +38,7 @@ for /f "delims=" %%i in ('git status --porcelain') do (
 if "%ERRORLEVEL%" NEQ "0" (
     echo 提交失败
 ) else (
-    echo 提交成功
+    echo 提交成功  
 )
  
 :: 结束脚本
