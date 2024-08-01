@@ -116,3 +116,44 @@ diff  <<<<<<< HEAD
 - 使用`git commit`提交解决冲突后的文件。
 
 以上就是创建和合并分支的基本流程。在实际开发中，可能还会涉及到一些更复杂的场景，比如重新基底（rebase）、拉取（pull）最新的更改等。
+
+
+
+
+
+----
+
+```javascript
+fatal: The current branch main has no upstream branch. To push the current branch and set the remote as upstream, use
+
+git push --set-upstream koa main
+To have this happen automatically for branches without a tracking upstream, see 'push.autoSetupRemote' in 'git help config'. 这个提示是什么情况?
+```
+
+### 设置上游分支
+
+这个错误信息表明你在尝试推送（`git push`）当前分支`main`到远程仓库时，本地的`main`分支并没有与远程的一个特定分支建立关联，也就是没有所谓的“上游分支”（upstream branch）。在Git中，上游分支是指定的远程分支，当你执行`git pull`或`git push`时，Git会默认与之交互。
+
+错误信息提供了两个解决方案：
+
+1. **手动设置上游分支**: 使用`git push --set-upstream <remote-name> <branch-name>`命令，其中`<remote-name>`是你想要推送的远程仓库的名字（通常是`origin`），`<branch-name>`是本地分支的名字。在这个例子中，你应该运行：
+
+   ```
+   bash
+   
+   git push --set-upstream koa main
+   ```
+
+   这将会把`main`分支推送到名为`koa`的远程仓库，并且设置`main`分支的上游分支为`koa/main`。
+
+2. **自动设置上游分支**: Git允许你配置`push.autoSetupRemote`选项，当推送一个没有上游分支的本地分支时，Git会自动创建一个与之对应的远程分支，并设置本地分支的上游。要启用此功能，你可以运行：
+
+   ```
+   bash
+   
+   git config push.autoSetupRemote true
+   ```
+
+   然后再次尝试`git push`，Git会自动为你设置上游分支。
+
+通常情况下，推荐首先手动设置上游分支，以确保你清楚地知道本地分支与远程分支之间的关系。一旦你设置了上游分支，之后的`git push`命令就可以直接使用，而不需要再次指定`--set-upstream`参数。
