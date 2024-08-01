@@ -37,6 +37,10 @@ for /f "delims=" %%i in ('git status --porcelain') do (
  
 :: 结束脚本
 endlocal
+
+:: 通过在 exit 前面加上 echo 命令，你确保了这段中文文本将被正确地输出到控制台，而不会被误认为是一个命令。
+echo 提交完成。
+
 ::pause 会等待用户按任意键关闭窗口。
 ::如果没有pause，脚本会在执行完成后自动关闭窗口。
 ::下面的exit是退出脚本，填了和没填是一样的，因为exit是默认的，所以可以不写。
