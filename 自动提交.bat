@@ -34,7 +34,7 @@ for /f "delims=" %%i in ('git status --porcelain') do (
         git push 
     )
 )
-
+ 
 :: 结束脚本
 endlocal
 ::pause 会等待用户按任意键关闭窗口。
