@@ -34,7 +34,6 @@ for /f "delims=" %%i in ('git status --porcelain') do (
         git push 
     )
 )
-
  
 :: 结束脚本
 endlocal
