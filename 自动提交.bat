@@ -56,7 +56,7 @@ for /f "delims=" %%i in ('git status --porcelain') do (
                         echo del %~dp0tomorrow_auto_commit_github.bat /f
                         echo endlocal
                       ) > tomorrow_auto_commit_github.bat
-                      schtasks /create /tn "tomorrow_auto_commit_github" /tr "%REPO_DIR%\autoCommit.bat" /sc once /st 23:25 /f
+                      schtasks /create /tn "tomorrow_auto_commit_github" /tr "%REPO_DIR%\autoCommit.bat" /sc once /st 9:25 /f
                     )
             )
         )
