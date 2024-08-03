@@ -21,7 +21,7 @@
 :: 切换到仓库目录
 cd /d "%REPO_DIR%"
 
-for /f "delims=" %%i in ('git status --porcelain') do (
+for /f "delims=" %%i in ('git status ') do (
    echo -------------
    echo %%i
 )
