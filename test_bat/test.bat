@@ -32,3 +32,5 @@ for /f "delims=" %%i in ('git status --porcelain') do (
    set COMMIT_MSG=自动提交: %DATE% at %T%
 echo %T%
 endlocal
+
+ 

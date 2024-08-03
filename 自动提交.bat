@@ -24,8 +24,14 @@ for /f "delims=" %%i in ('git status --porcelain') do (
        for /f "tokens=2,3,4 delims=/. " %%a in ("%date%") do (
         set DATE=%%a/%%b/%%c
         )
-        set T=%time:~0,5%
-        set COMMIT_MSG=自动提交: %DATE% at !T!
+        @REM set TIME=%time:~0,8%
+        @REM set COMMIT_MSG=自动提交: %DATE% at %TIME%
+
+        set TIME=%time:~0,5%
+        ::这里使用了动态的变量!T!，否则set TIME=%time:~0,8% 的修改是不起作用的。
+        ::同时bat文件中的字母是不分大小写的。下面的%DATE%其实是未修改前的变量，
+        ::因此上面的for循环中的set DATE=%%a/%%b/%%c的修改的没有起作用。
+        set COMMIT_MSG=自动提交: %DATE% at !TIME!
 
         :: 提交更改
         git commit -m "!COMMIT_MSG!"
