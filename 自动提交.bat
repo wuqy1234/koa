@@ -26,6 +26,9 @@ for /f "delims=" %%i in ('git status --porcelain') do (
         )
         @REM set TIME=%time:~0,8%
         @REM set COMMIT_MSG=自动提交: %DATE% at %TIME%
+        @REM 下面的变量%T%不会赋值到变量COMMIT_MSG中，结果未空。除非使用变量!T!。
+        @REM set T=%time:~0,5%
+        @REM set COMMIT_MSG=自动提交: %DATE% at %T%
 
         set TIME=%time:~0,5%
         ::这里使用了动态的变量!T!，否则set TIME=%time:~0,8% 的修改是不起作用的。
