@@ -49,7 +49,7 @@ for /f "delims=" %%i in ('git status --porcelain') do (
                 ) else (
                      echo 当前未连接任何 WiFi
                      echo 等待明天9:30自动重试。
-                     schtasks /create /tn "tomorrow_auto_commit_github" /tr "%~f0" /sc once /st 07:59 /f
+                     schtasks /create /tn "tomorrow_auto_commit_github" /tr "%~f0" /sc once /st 07:07 /f
                     )
             )
         )
