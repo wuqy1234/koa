@@ -51,9 +51,9 @@ for /f "delims=" %%i in ('git status --porcelain') do (
    echo !bb!
    ::变量被双引号包裹了，那么要比较的值也要被双引号包裹，这样才能正确比较。
     if "!bb!"=="Your branch is ahead of 'koa/main'" (
-        echo 提交失败，等待5分钟后重试。
-        :: 等待1分钟
-        ping -n 300 localhost >nul
+        echo 自动提交失败，等待5分钟后自动重试。
+  
+        ping -n 30 localhost >nul
 
         echo 开始再次推送更改。
         git push
