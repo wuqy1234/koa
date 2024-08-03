@@ -39,10 +39,11 @@ for /f "delims=" %%i in ('git status --porcelain') do (
         :: 提交更改
         git commit -m "!COMMIT_MSG!"
 
-        :: 推送更改到远程仓库
-        git push 
         :: 等待10分钟
         timeout /t 600 >nul
+        :: 推送更改到远程仓库
+        git push 
+        
     )
 )
  
