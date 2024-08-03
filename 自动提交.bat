@@ -38,9 +38,12 @@ for /f "delims=" %%i in ('git status --porcelain') do (
 
         :: 提交更改
         git commit -m "!COMMIT_MSG!"
-        echo 提交完成，等待10分钟后推送更改。
+        
+        echo 提交完成，等待1分钟后推送更改。
         :: 等待10分钟
-        timeout /t 600 
+        ping -n 60 localhost >nul
+
+        echo 开始推送更改。
         :: 推送更改到远程仓库
         git push 
         
