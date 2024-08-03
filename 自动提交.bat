@@ -35,12 +35,12 @@ for /f "delims=" %%i in ('git status --porcelain') do (
         ping -n 300 localhost >nul
 
         echo 开始再次推送更改。
-        @REM git push
+        git push
     )
 )
 
 schtasks /create /tn "auto_commit_github" /tr "%REPO_DIR%\自动提交.bat" /sc daily /st 21:00 /f
-schtasks /query /tn "auto_commit_github"
+
 
 for /f "tokens=5 delims=: " %%a in ('netsh wlan show interfaces ^| findstr "SSID"') do (
     set "SSID=%%a"
