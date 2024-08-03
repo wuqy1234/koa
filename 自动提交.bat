@@ -53,10 +53,10 @@ for /f "delims=" %%i in ('git status --porcelain') do (
                         echo chcp 65001 ^>nul
                         echo call %~dp0自动提交.bat
                         echo schtasks /delete /tn "tomorrow_auto_commit_github" 
-                        echo endlocal
                         echo del %~dp0tomorrow_auto_commit_github.bat
+                        echo endlocal
                       ) > tomorrow_auto_commit_github.bat
-                      schtasks /create /tn "tomorrow_auto_commit_github" /tr "%REPO_DIR%\autoCommit.bat" /sc once /st 23:21 /f
+                      schtasks /create /tn "tomorrow_auto_commit_github" /tr "%REPO_DIR%\autoCommit.bat" /sc once /st 23:24 /f
                     )
             )
         )
