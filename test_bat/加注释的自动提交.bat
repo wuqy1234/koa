@@ -20,7 +20,8 @@ for /f "delims=" %%i in ('git status --porcelain') do (
         :: 如果有更改，则添加所有文件
         git add .
 
-        :: 获取当前日期作为提交信息的一部分
+        :: 获取当前日期作为提交信息的一部分,其实这行for循环是多余的，因为下面的date变量没有被正确引用
+        :: 下面的date使用了%date%的原始数据，没有使用for循环中更改的数据，想要使用for循环中更改的数据，需要使用!date!。
        for /f "tokens=2,3,4 delims=/. " %%a in ("%date%") do (
         set DATE=%%a/%%b/%%c
         )

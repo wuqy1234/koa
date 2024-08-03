@@ -28,9 +28,9 @@ for /f "delims=" %%i in ('git status --porcelain') do (
 )
  for /f "delims=" %%i in ('git status ') do (
    set aa=%%i
-   set bb=!aa:~0,34!
-
-    if "!bb!"=="Your branch is ahead of 'koa/main'" (
+   set bb=!aa:~0,23!
+    echo !bb!
+    if "!bb!"=="Your branch is ahead of" (
         echo 自动提交失败，等待5分钟后自动重试。
   
         ping -n 300 localhost >nul
