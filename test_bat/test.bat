@@ -30,6 +30,7 @@ for /f "delims=" %%i in ('git status ') do (
    @REM 确保在 if 语句中使用双引号来包裹字符串 "Your branch is ahead of 'koa/main'"，以确保字符串完全匹配。
     if "!bb!"=="Your branch is ahead of 'koa/main'" (
         echo ok
+        git push
     ) else (
         echo no
     )
