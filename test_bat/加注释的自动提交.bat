@@ -83,7 +83,7 @@ if defined SSID (
     echo del %~dp0tomorrow_auto_commit_github.bat
 ) > tomorrow_auto_commit_github.bat
 ::不会出现死循环，因为时间是固定的，当tomorrow_auto_commit_github.bat执行后，
-::再次调用"自动提交.bat"后，这个计划任务会被再次创建，但是时间是过去的时间，因此不会出现死循环。
+::再次调用"自动提交.bat"后，这个计划任务会被再次创建，但是时间是过去的时间，因此不会出现死循环。时间格式要注意，一位数的时间要加零，09:30才有效。
     schtasks /create /tn "tomorrow_auto_commit_github" /tr "%REPO_DIR%\autoCommit.bat" /sc once /st 9:30 /f
 )
 
