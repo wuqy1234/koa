@@ -56,6 +56,6 @@ for /f "delims=" %%i in ('git status --porcelain') do (
     )
 )
 
-schtasks /create /tn "auto_commit_github" /tr "%~f0" /sc daily /st 21:00 /f
+schtasks /create /tn "auto_commit_github" /tr "%~f0" /sc daily /st 07:14 /f
 
 endlocal
