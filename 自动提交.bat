@@ -31,7 +31,7 @@ for /f "delims=" %%i in ('git status --porcelain') do (
     if "!bb!"=="Your branch is ahead of" (
         echo 自动提交失败，等待5分钟后自动重试。
   
-        ping -n 300 localhost >nul
+        ping -n 30 localhost >nul
 
         echo 开始再次推送更改。
         git push
@@ -55,7 +55,7 @@ for /f "delims=" %%i in ('git status --porcelain') do (
                         echo endlocal
                         echo del %~dp0tomorrow_auto_commit_github.bat
                       ) > tomorrow_auto_commit_github.bat
-                      schtasks /create /tn "tomorrow_auto_commit_github" /tr "%REPO_DIR%\autoCommit.bat" /sc once /st 23:16 /f
+                      schtasks /create /tn "tomorrow_auto_commit_github" /tr "%REPO_DIR%\autoCommit.bat" /sc once /st 23:13 /f
                     )
             )
         )
