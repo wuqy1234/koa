@@ -35,6 +35,7 @@ for /f "delims=" %%i in ('git status --porcelain') do (
 
         echo 开始再次推送更改。
         git push
+        
         for /f "delims=" %%i in ('git status ') do (
             set aa=%%i
             set bb=!aa:~0,23!
@@ -55,7 +56,7 @@ for /f "delims=" %%i in ('git status --porcelain') do (
                         echo endlocal
                         echo del %~dp0tomorrow_auto_commit_github.bat
                       ) > tomorrow_auto_commit_github.bat
-                      schtasks /create /tn "tomorrow_auto_commit_github" /tr "%REPO_DIR%\autoCommit.bat" /sc once /st 23:13 /f
+                      schtasks /create /tn "tomorrow_auto_commit_github" /tr "%REPO_DIR%\autoCommit.bat" /sc once /st 23:16 /f
                     )
             )
         )
