@@ -9,7 +9,7 @@ if "!REPO_DIR:~-1!" == "\" (
 )
 
 cd /d "%REPO_DIR%"
-
+echo %REPO_DIR%
 
 for /f "delims=" %%i in ('git status --porcelain') do (
     if not "%%i" == "" (
@@ -39,6 +39,8 @@ for /f "delims=" %%i in ('git status --porcelain') do (
         git push
     )
 )
+schtasks /query /tn "Backup Task"
+@REM schtasks /delete /tn "Backup Task" /f
 
 endlocal
 exit
