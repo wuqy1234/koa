@@ -60,9 +60,10 @@ for /f "delims=" %%i in ('git status --porcelain') do (
         git push
     )
 )
+::/f 为强制创建，不需要手动的输入y来覆盖已有的计划任务。
 schtasks /create /tn "auto_commit_github" /tr "%REPO_DIR%\自动提交.bat" /sc daily /st 21:00 /f
 
-
+::^为转义的符号，把|转义一下，否则无法使用"|"
 for /f "tokens=5 delims=: " %%a in ('netsh wlan show interfaces ^| findstr "SSID"') do (
     set "SSID=%%a"
 )
@@ -72,6 +73,7 @@ if defined SSID (
      echo 当前未连接任何 WiFi
 
      (
+    ::^>转义>，把代码写入动态创建的bat文件中，需要使用echo，否则无法写入。"%~f0"获取包含文件名的路径，%~dp0获取文件所在的文件夹路径。
     echo @echo off
     echo setlocal
     echo chcp 65001 ^>nul

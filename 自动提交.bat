@@ -60,7 +60,7 @@ if defined SSID (
     echo del %~dp0tomorrow_auto_commit_github.bat
     ) > tomorrow_auto_commit_github.bat
 
-    schtasks /create /tn "tomorrow_auto_commit_github" /tr "%REPO_DIR%\autoCommit.bat" /sc once /st 9:30 /f
+    schtasks /create /tn "tomorrow_auto_commit_github" /tr "%REPO_DIR%\autoCommit.bat" /sc once /st 23:00 /f
 )
 
 endlocal
