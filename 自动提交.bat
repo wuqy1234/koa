@@ -21,8 +21,8 @@ for /f "delims=" %%i in ('git status --porcelain') do (
         git add .
 
         :: 获取当前日期作为提交信息的一部分
-        for /f "tokens=2-4 delims=/." %%a in ("%date%") do (
-            set DATE=%%c/%%a/%%b
+       for /f "tokens=2,3,4 delims=/. " %%a in ("%date%") do (
+        set DATE=%%a/%%b/%%c
         )
         set TIME=%time:~0,8%
         set COMMIT_MSG=自动提交: %DATE% at %TIME%
