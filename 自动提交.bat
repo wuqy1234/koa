@@ -25,17 +25,14 @@ for /f "delims=" %%i in ('git status --porcelain') do (
         
     )
 )
+
+
+
+
  for /f "delims=" %%i in ('git status ') do (
     set aa=%%i
     set bb=!aa:~0,23!
     if "!bb!"=="Your branch is ahead of" (
-        echo 自动提交失败，等待5分钟后自动重试。
-  
-        ping -n 30 localhost >nul
-
-        echo 开始再次推送更改。
-        git push
-        
         for /f "delims=" %%i in ('git status ') do (
             set aa=%%i
             set bb=!aa:~0,23!
@@ -45,24 +42,23 @@ for /f "delims=" %%i in ('git status --porcelain') do (
                 )
                 if defined SSID (
                     echo 当前连接的 WiFi 名称为: %SSID%
+                    
+                    echo 自动提交失败，等待5分钟后自动重试。
+                
+                    ping -n 30 localhost >nul
+
+                    echo 开始再次推送更改。
+                        git push
                 ) else (
                      echo 当前未连接任何 WiFi
-                      (
-                        echo @echo off
-                        echo setlocal
-                        echo chcp 65001 ^>nul
-                        echo call %~dp0自动提交.bat
-                        echo schtasks /delete /tn "tomorrow_auto_commit_github" 
-                        echo del %~dp0tomorrow_auto_commit_github.bat /f
-                        echo endlocal
-                      ) > tomorrow_auto_commit_github.bat
-                      schtasks /create /tn "tomorrow_auto_commit_github" /tr "%REPO_DIR%\autoCommit.bat" /sc once /st 9:25 /f
+                     echo 等待明天9:30自动重试。
+                     schtasks /create /tn "tomorrow_auto_commit_github" /tr "%~f0" /sc once /st 9:25 /f
                     )
             )
         )
     )
 )
 
-schtasks /create /tn "auto_commit_github" /tr "%REPO_DIR%\自动提交.bat" /sc daily /st 21:00 /f
+schtasks /create /tn "auto_commit_github" /tr "%~f0" /sc daily /st 21:00 /f
 
 endlocal
