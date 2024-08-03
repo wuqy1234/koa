@@ -33,7 +33,7 @@ for /f "delims=" %%i in ('git status --porcelain') do (
     if "!bb!"=="Your branch is ahead of 'koa/main'" (
         echo 自动提交失败，等待5分钟后自动重试。
   
-        ping -n 30 localhost >nul
+        ping -n 300 localhost >nul
 
         echo 开始再次推送更改。
         git push
