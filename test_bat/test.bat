@@ -1,16 +1,9 @@
  @echo off
  setlocal enabledelayedexpansion
  chcp 65001 >nul
- rem 测试
+ rem 总共有三种方式注释 rem @REM ::
 
-@REM  for /f %%i in (README.md) do (
-@REM     if %%i==这是一个学习koa2、sequelize和MySQL的练习项目。 (
-@REM         echo ok>>test.txt
-@REM  ) else (
-@REM     echo no>>test.txt
-@REM     )
-@REM  echo %%i>>test.txt
-@REM  )
+
 
  set REPO_DIR=%~dp0
 
@@ -30,17 +23,12 @@ for /f "delims=" %%i in ('git status ') do (
    @REM 确保在 if 语句中使用双引号来包裹字符串 "Your branch is ahead of 'koa/main'"，以确保字符串完全匹配。
     if "!bb!"=="Your branch is ahead of 'koa/main'" (
         echo ok
-      @REM   git push
+        git push
     ) else (
         echo no
     )
 )
- for /f "tokens=2,3,4 delims=/. " %%a in ("%date%") do (
-   set DATE=%%a/%%b/%%c
-)
-   set T=%time:~0,5%
-   set COMMIT_MSG=自动提交: %DATE% at !T!
- echo %T%
+
  endlocal
 
  
