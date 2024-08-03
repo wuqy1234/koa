@@ -39,17 +39,26 @@ for /f "delims=" %%i in ('git status --porcelain') do (
         :: 提交更改
         git commit -m "!COMMIT_MSG!"
         
-        echo 提交完成，等待1分钟后推送更改。
-        :: 等待10分钟
-        ping -n 60 localhost >nul
-
-        echo 开始推送更改。
         :: 推送更改到远程仓库
         git push 
         
     )
 )
- 
+ for /f "delims=" %%i in ('git status ') do (
+   echo -------------
+   set aa=%%i
+   set bb=!aa:~0,34!
+   echo !bb!
+   ::变量被双引号包裹了，那么要比较的值也要被双引号包裹，这样才能正确比较。
+    if "!bb!"=="Your branch is ahead of 'koa/main'" (
+        echo 提交完成，等待1分钟后推送更改。
+        :: 等待1分钟
+        ping -n 60 localhost >nul
+
+        echo 开始推送更改。
+        git push
+    )
+)
  
 :: 结束脚本
 endlocal
