@@ -9,7 +9,6 @@ if "!REPO_DIR:~-1!" == "\" (
 )
 
 cd /d "%REPO_DIR%"
-echo %REPO_DIR%
 
 for /f "delims=" %%i in ('git status --porcelain') do (
     if not "%%i" == "" (
@@ -36,11 +35,32 @@ for /f "delims=" %%i in ('git status --porcelain') do (
         ping -n 300 localhost >nul
 
         echo 开始再次推送更改。
-        git push
+        @REM git push
     )
 )
-schtasks /query /tn "Backup Task"
-@REM schtasks /delete /tn "Backup Task" /f
+
+schtasks /create /tn "auto_commit_github" /tr "%REPO_DIR%\自动提交.bat" /sc daily /st 21:00 /f
+schtasks /query /tn "auto_commit_github"
+
+for /f "tokens=5 delims=: " %%a in ('netsh wlan show interfaces ^| findstr "SSID"') do (
+    set "SSID=%%a"
+)
+if defined SSID (
+    echo 当前连接的 WiFi 名称为: %SSID%
+) else (
+     echo 当前未连接任何 WiFi
+
+     (
+    echo @echo off
+    echo setlocal
+    echo chcp 65001 ^>nul
+    echo call %~dp0自动提交.bat
+    echo schtasks /delete /tn "tomorrow_auto_commit_github" 
+    echo endlocal
+    echo del %~dp0tomorrow_auto_commit_github.bat
+) > tomorrow_auto_commit_github.bat
+::不会出现死循环，因为时间是固定的，当autoCommit.bat执行后，再次调用自动提交.bat后，这个计划任务会被再次创建，但是时间是过去的时间，因此不会出现死循环。
+    schtasks /create /tn "tomorrow_auto_commit_github" /tr "%REPO_DIR%\autoCommit.bat" /sc once /st 9:30 /f
+)
 
 endlocal
-exit
