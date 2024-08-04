@@ -33,11 +33,11 @@ for /f "delims=" %%i in ('git status --porcelain') do (
         ) else (
                 echo 当前未连接任何 WiFi
                 echo 正在创建计划任务,等待明天9:30自动重试。
-                schtasks /create /tn "tomorrow_auto_commit_github" /tr "%~f0" /sc once /st 10:14 /f
+                schtasks /create /tn "tomorrow_auto_commit_github" /tr "%~f0" /sc once /st 10:16 /f
             )
     )
 )
 
-schtasks /create /tn "auto_commit_github" /tr "%~f0" /sc daily /st 21:00 /f
+schtasks /create /tn "auto_commit_github" /tr "%~f0" /sc daily /10:17 /f
 endlocal
 pause
