@@ -16,6 +16,8 @@ for /f "delims=" %%i in ('git status --porcelain') do (
     )
 )
 
+ for /f %%a in ("%ROOT_DIR%") do (set task_name=%%~nxa_auto_commit)
+ schtasks /create /tn "!task_name!" /tr "%~f0" /sc daily /st 21:30 /f
 
  for /f "delims=" %%i in ('git status') do (
     set aa=%%i
@@ -33,10 +35,11 @@ for /f "delims=" %%i in ('git status --porcelain') do (
         ) else (
                 echo 当前未连接任何 WiFi
                 echo 正在创建计划任务,等待明天9:30自动重试。
-                schtasks /create /tn "tomorrow_auto_commit_github" /tr "%~f0" /sc once /st 09:30 /f
+                set task_name=!task_name!_tomorrow
+                schtasks /create /tn "!task_name!" /tr "%~f0" /sc once /st 09:30 /f
             )
     )
 )
 
-schtasks /create /tn "auto_commit_github" /tr "%~f0" /sc daily /st 21:30 /f
+
 endlocal
