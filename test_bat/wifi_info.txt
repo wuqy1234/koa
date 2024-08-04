@@ -15,10 +15,10 @@ There is 1 interface on the system:
     Cipher                 : CCMP
     Connection mode        : Auto Connect
     Band                   : 5 GHz  
-    Channel                : 36
+    Channel                : 149
     Receive rate (Mbps)    : 1201
     Transmit rate (Mbps)   : 1201
-    Signal                 : 96% 
+    Signal                 : 94% 
     Profile                : Mi 10_YnrY​ 
 
     Hosted network status  : Not available

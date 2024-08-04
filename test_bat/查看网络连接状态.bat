@@ -18,6 +18,8 @@ netsh wlan show interfaces >test_bat\wifi_info.txt
 
 netsh wlan show interfaces | findstr "SSID">test_bat\wifi_SSID.txt
 
-git status | findstr "Changes to be committed"
+@REM git status | findstr "Your branch is ahead of">test_bat\git_status.txt
+
+git push | findstr "fatal: unable to access*">test_bat\git_push.txt
 
 endlocal
