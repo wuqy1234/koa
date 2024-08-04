@@ -12,7 +12,7 @@ for /f "delims=" %%i in ('git status --porcelain') do (
         set TIME=%time:~0,5%
         set COMMIT_MSG=自动提交: %DATE% at !TIME!
         git commit -m "!COMMIT_MSG!"
-        git push 
+        @REM git push 
     )
 )
 
@@ -29,11 +29,12 @@ for /f "delims=" %%i in ('git status --porcelain') do (
             echo 自动提交失败,等待5分钟后自动重试。
             ping -n 300 localhost >nul
             echo 开始再次推送更改。
-                git push
+                @REM git push
         ) else (
                 echo 当前未连接任何 WiFi
                 echo 正在创建计划任务,等待明天9:30自动重试。
-                schtasks /create /tn "tomorrow_auto_commit_github" /tr "%~f0" /sc once /st 09:30 /f
+                schtasks /create /tn "tomorrow_auto_commit_github" /tr "%~f0" /sc once  /f
+                schtasks /run /tn "tomorrow_auto_commit_github"
             )
     )
 )
