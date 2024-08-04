@@ -1,11 +1,1 @@
-On branch main
-Your branch is up to date with 'koa/main'.
 
-Changes not staged for commit:
-  (use "git add <file>..." to update what will be committed)
-  (use "git restore <file>..." to discard changes in working directory)
-	modified:   test_bat/git_status.txt
-	modified:   "test_bat/\346\237\245\347\234\213\347\275\221\347\273\234\350\277\236\346\216\245\347\212\266\346\200\201.bat"
-	modified:   "\345\255\246\344\271\240\347\254\224\350\256\260/win11\346\211\271\346\223\215\350\257\255\350\250\200/\345\237\272\347\241\200.md"
-
-no changes added to commit (use "git add" and/or "git commit -a")
