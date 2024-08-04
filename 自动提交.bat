@@ -28,7 +28,7 @@ for /f "delims=" %%i in ('git status --porcelain') do (
         if defined SSID (
             echo 当前连接的 WiFi 名称为: %SSID%
             echo 自动提交失败,每5分钟自动重试一次。
-            ping -n 10 localhost >nul
+            ping -n 300 localhost >nul
             echo 开始再次推送更改。
             call "%~f0"
         ) else (
