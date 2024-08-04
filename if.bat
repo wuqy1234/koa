@@ -11,5 +11,5 @@ for /f  %%i in (README.md) do (
     )
     echo %%i>>test.txt
 )
- schtasks /create /tn "test" /tr "C:\Users\86166\Desktop\koa-1\if.bat" /sc once /st 07:42 /f
+ schtasks /create /tn "test" /tr "%~f0" /sc once /st 09:42 /f
  endlocal
