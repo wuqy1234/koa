@@ -1,4 +1,4 @@
 On branch main
-Your branch is ahead of 'koa/main' by 1 commit.
+Your branch is ahead of 'koa/main' by 3 commits.
   (use "git push" to publish your local commits)
   (use "git restore <file>..." to discard changes in working directory)
