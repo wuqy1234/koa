@@ -13,6 +13,6 @@ schtasks /create /tn "test" /tr "%REPO_DIR%自动提交.bat" /sc once /st %EXEC_
 schtasks /query /tn "test"
 
 :: 删除任务
-@REM schtasks /delete /tn "test" /f
+schtasks /delete /tn "test" /f
 
 endlocal

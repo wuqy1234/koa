@@ -16,7 +16,7 @@ for /f "delims=" %%i in ('git status --porcelain') do (
         set COMMIT_MSG=自动提交: %DATE% at !TIME!
         git commit -m "!COMMIT_MSG!"
         git push 
-        schtasks /delete /tn "!task_name!_tomorrow"/f
+        schtasks /delete /tn "!task_name!_tomorrow" /f
     )
 )
 
