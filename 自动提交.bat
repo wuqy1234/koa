@@ -35,7 +35,7 @@ schtasks /create /tn "!task_name!" /tr "%~f0" /sc daily /st 21:30 /f
                 echo 当前未连接任何 WiFi
                 echo 正在创建计划任务,等待明天9:30自动重试。
                 set task_name=!task_name!_tomorrow
-                schtasks /create /tn "!task_name!" /tr "%~f0" /sc once /st 09:30 /f
+                schtasks /create /tn "!task_name!" /tr "%~f0" /sc daily /st 09:30 /f
             )
     )
 )
