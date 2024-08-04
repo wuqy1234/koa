@@ -14,4 +14,10 @@ if defined SSID (
     echo 当前未连接任何 WiFi
 )
 
+netsh wlan show interfaces >test_bat\wifi_info.txt
+
+netsh wlan show interfaces | findstr "SSID">test_bat\wifi_SSID.txt
+
+git status | findstr "Changes to be committed"
+
 endlocal
