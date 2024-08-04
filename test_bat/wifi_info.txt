@@ -17,8 +17,8 @@ There is 1 interface on the system:
     Band                   : 5 GHz  
     Channel                : 149
     Receive rate (Mbps)    : 1201
-    Transmit rate (Mbps)   : 1201
-    Signal                 : 96% 
+    Transmit rate (Mbps)   : 1134
+    Signal                 : 95% 
     Profile                : Mi 10_YnrY​ 
 
     Hosted network status  : Not available

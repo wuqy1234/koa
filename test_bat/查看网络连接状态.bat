@@ -21,5 +21,6 @@ netsh wlan show interfaces | findstr "SSID">test_bat\wifi_SSID.txt
 @REM git status | findstr "Your branch is ahead of*">test_bat\git_status.txt
 @REM start /wait cmd /c "git push"
 @REM git push | findstr "fatal: unable to access*" > test_bat\git_push.txt
-git status | find "Your branch is ahead of">test_bat\git_status.txt
+@REM git status | find "Your branch is ahead of">test_bat\git_status.txt
+
 endlocal
