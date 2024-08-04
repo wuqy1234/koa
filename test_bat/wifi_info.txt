@@ -18,7 +18,7 @@ There is 1 interface on the system:
     Channel                : 149
     Receive rate (Mbps)    : 1201
     Transmit rate (Mbps)   : 1201
-    Signal                 : 94% 
+    Signal                 : 92% 
     Profile                : Mi 10_YnrY​ 
 
     Hosted network status  : Not available
