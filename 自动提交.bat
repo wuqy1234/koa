@@ -17,7 +17,6 @@ for /f "delims=" %%i in ('git status --porcelain') do (
 )
 
 
-
  for /f "delims=" %%i in ('git status') do (
     set aa=%%i
     set bb=!aa:~0,23!
