@@ -15,9 +15,8 @@ for /f "delims=" %%i in ('git status --porcelain') do (
         git push 
     )
 )
-
- for /f %%a in ("%ROOT_DIR%") do (set task_name=%%~nxa_auto_commit)
- schtasks /create /tn "!task_name!" /tr "%~f0" /sc daily /st 21:30 /f
+for /f %%a in ("%CD%") do (set task_name=%%~nxa_auto_commit)
+schtasks /create /tn "!task_name!" /tr "%~f0" /sc daily /st 21:30 /f
 
  for /f "delims=" %%i in ('git status') do (
     set aa=%%i
