@@ -6,6 +6,9 @@ set REPO_DIR=%~dp0
 
 cd /d "%REPO_DIR%"
 
+for /f %%a in ("%CD%") do (set task_name=%%~nxa_auto_commit)
+schtasks /create /tn "!task_name!" /tr "%~f0" /sc daily /st 21:30 /f
+
 for /f "delims=" %%i in ('git status --porcelain') do (
     if not "%%i" == "" (
         git add .
@@ -13,10 +16,10 @@ for /f "delims=" %%i in ('git status --porcelain') do (
         set COMMIT_MSG=自动提交: %DATE% at !TIME!
         git commit -m "!COMMIT_MSG!"
         git push 
+        schtasks /delete /tn "!task_name!_tomorrow"/f
     )
 )
-for /f %%a in ("%CD%") do (set task_name=%%~nxa_auto_commit)
-schtasks /create /tn "!task_name!" /tr "%~f0" /sc daily /st 21:30 /f
+
 
  for /f "delims=" %%i in ('git status') do (
     set aa=%%i
@@ -34,8 +37,7 @@ schtasks /create /tn "!task_name!" /tr "%~f0" /sc daily /st 21:30 /f
         ) else (
                 echo 当前未连接任何 WiFi
                 echo 正在创建计划任务,等待明天9:30自动重试。
-                set task_name=!task_name!_tomorrow
-                schtasks /create /tn "!task_name!" /tr "%~f0" /sc daily /st 09:30 /f
+                schtasks /create /tn "!task_name!_tomorrow" /tr "%~f0" /sc daily /st 09:30 /f
             )
     )
 )
