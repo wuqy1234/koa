@@ -1,9 +1,7 @@
 @echo off
 setlocal enabledelayedexpansion
 chcp 65001 >nul
-
 set REPO_DIR=%~dp0
-
 cd /d "%REPO_DIR%"
 
 for /f %%a in ("%CD%") do (set task_name=%%~nxa_auto_push)
@@ -40,6 +38,5 @@ for /f "delims=" %%i in ('git status --porcelain') do (
             )
     )
 )
-
 
 endlocal
