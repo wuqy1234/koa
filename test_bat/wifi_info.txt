@@ -6,20 +6,9 @@ There is 1 interface on the system:
     GUID                   : 5da84fbb-89c1-42e5-9961-87671b02a8e3
     Physical address       : a0:02:a5:98:dc:49
     Interface type         : Primary
-    State                  : connected
-    SSID                   : 4D692031305F596E7259E2808B
-    BSSID                  : 06:e9:92:fc:e2:75
-    Network type           : Infrastructure
-    Radio type             : 802.11ax
-    Authentication         : WPA2-Personal
-    Cipher                 : CCMP
-    Connection mode        : Auto Connect
-    Band                   : 5 GHz  
-    Channel                : 149
-    Receive rate (Mbps)    : 1201
-    Transmit rate (Mbps)   : 1201
-    Signal                 : 92% 
-    Profile                : Mi 10_YnrY​ 
+    State                  : disconnected
+    Radio status           : Hardware On
+                             Software Off
 
     Hosted network status  : Not available
 
