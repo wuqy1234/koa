@@ -17,7 +17,7 @@ for /f "delims=" %%i in ('git status --porcelain') do (
         schtasks /delete /tn "!task_name!_tomorrow" /f
     )
 )
-git pull>>pull_log.txt
+
  for /f "delims=" %%i in ('git status') do (
     set aa=%%i
     set bb=!aa:~0,23!
@@ -36,6 +36,9 @@ git pull>>pull_log.txt
                 echo 已创建计划任务,等待明天9:30自动重试。
                 schtasks /create /tn "!task_name!_tomorrow" /tr "%~f0" /sc daily /st 09:30 /f
             )
+    ) else (
+        echo 当前没有修改需要提交，正在从远端拉取最新更改。
+        git pull>>pull_log.txt
     )
 )
 
