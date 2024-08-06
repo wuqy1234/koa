@@ -17,7 +17,7 @@ for /f "delims=" %%i in ('git status --porcelain') do (
         schtasks /delete /tn "!task_name!_tomorrow" /f
     )
 )
-git pull>pull_log.txt
+git pull>>pull_log.txt
  for /f "delims=" %%i in ('git status') do (
     set aa=%%i
     set bb=!aa:~0,23!
