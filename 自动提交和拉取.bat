@@ -4,8 +4,8 @@ chcp 65001 >nul
 set REPO_DIR=%~dp0
 cd /d "%REPO_DIR%"
 
-for /f %%a in ("%CD%") do (set task_name=%%~nxa_auto_push)
-schtasks /create /tn "!task_name!" /tr "%~f0" /sc daily /st 21:30 /f
+@REM for /f %%a in ("%CD%") do (set task_name=%%~nxa_auto_push)
+@REM schtasks /create /tn "!task_name!" /tr "%~f0" /sc daily /st 21:30 /f
 
 for /f "delims=" %%i in ('git status --porcelain') do (
     if not "%%i" == "" (
