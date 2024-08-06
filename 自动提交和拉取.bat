@@ -21,6 +21,7 @@ for /f "delims=" %%i in ('git status --porcelain') do (
  for /f "delims=" %%i in ('git status') do (
     set aa=%%i
     set bb=!aa:~0,23!
+    echo  %%i 111111 !bb!
     if "!bb!"=="Your branch is ahead of" (
         for /f "tokens=5 delims=: " %%a in ('netsh wlan show interfaces ^| findstr "SSID"') do (
             set "SSID=%%a"
