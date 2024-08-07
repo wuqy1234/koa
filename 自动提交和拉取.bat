@@ -7,18 +7,18 @@ cd /d "%REPO_DIR%"
 @REM for /f %%a in ("%CD%") do (set task_name=%%~nxa_auto_push)
 @REM schtasks /create /tn "!task_name!" /tr "%~f0" /sc daily /st 21:30 /f
 
-for /f "delims=" %%i in ('git status --porcelain') do (
-    if not "%%i" == "" (
-        git add .
-        set TIME=%time:~0,5%
-        set COMMIT_MSG=自动提交: %DATE% at !TIME!
-        git commit -m "!COMMIT_MSG!"
-        @REM git push 
-        @REM schtasks /delete /tn "!task_name!_tomorrow" /f
-        github
+@REM for /f "delims=" %%i in ('git status --porcelain') do (
+@REM     if not "%%i" == "" (
+@REM         git add .
+@REM         set TIME=%time:~0,5%
+@REM         set COMMIT_MSG=自动提交: %DATE% at !TIME!
+@REM         git commit -m "!COMMIT_MSG!"
+@REM         @REM git push 
+@REM         @REM schtasks /delete /tn "!task_name!_tomorrow" /f
+@REM         github
 
-    )
-)
+@REM     )
+@REM )
 
 @REM  for /f "delims=" %%i in ('git status') do (
 @REM     set aa=%%i
@@ -44,5 +44,12 @@ for /f "delims=" %%i in ('git status --porcelain') do (
 @REM         git pull
 @REM     )
 @REM )
+
+
+        git add .
+        set TIME=%time:~0,5%
+        set COMMIT_MSG=自动提交: %DATE% at !TIME!
+        git commit -m "!COMMIT_MSG!"
+        github
 
 endlocal
