@@ -44,4 +44,3 @@ for /f "delims=" %%i in ('git status --porcelain') do (
 )
 
 endlocal
-pause
