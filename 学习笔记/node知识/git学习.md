@@ -157,3 +157,69 @@ To have this happen automatically for branches without a tracking upstream, see 
    然后再次尝试`git push`，Git会自动为你设置上游分支。
 
 通常情况下，推荐首先手动设置上游分支，以确保你清楚地知道本地分支与远程分支之间的关系。一旦你设置了上游分支，之后的`git push`命令就可以直接使用，而不需要再次指定`--set-upstream`参数。
+
+
+
+
+
+### ==git add 的过程中怎么过滤掉node_modules文件?==
+
+当你使用 `git add` 命令来添加文件到 Git 的暂存区时，如果想避免将 `node_modules` 文件夹添加进去，你可以采取以下几种方法：
+
+**方法 1: 使用 `.gitignore` 文件**
+
+最常用的方法是在项目的根目录下创建或更新 `.gitignore` 文件，然后将 `node_modules` 添加到其中。这样 Git 就会自动忽略这个文件夹。
+
+1. **创建或编辑 `.gitignore` 文件**:
+
+   ```bash
+   echo "node_modules/" > .gitignore
+   ```
+
+2. **提交 `.gitignore` 文件**:
+
+   ```bash
+   git add .gitignore
+   git commit -m "Add node_modules to .gitignore"
+   ```
+
+3. **推送 `.gitignore` 文件到远程仓库**:
+
+   ```bash
+   git push origin main
+   ```
+
+**方法 2: 使用 `--exclude` 选项**
+
+如果你已经有一个 `.gitignore` 文件并且 `node_modules` 已经被添加到了版本控制中，你可以使用 `git rm --cached` 命令移除 `node_modules` 文件夹的跟踪状态，然后再执行 `git add` 时使用 `--exclude` 选项来排除 `node_modules`。
+
+1. **移除 `node_modules` 的跟踪状态**:
+
+   ```bash
+   git rm --cached -r node_modules
+   ```
+
+2. **添加其他文件到暂存区同时排除 `node_modules`**:
+
+   ```bash
+   git add --exclude=node_modules .
+   ```
+
+**方法 3: 使用 `git add` 的 `-i` 交互式模式**
+
+你还可以使用 `git add -i` 进入交互式模式，手动选择要添加的文件和文件夹。
+
+1. **运行交互式添加**:
+
+   ```bash
+   git add -i
+   ```
+
+   在交互式模式中，你可以按提示选择文件或文件夹添加到暂存区。
+
+**注意事项**
+
+- 如果 `node_modules` 文件夹已经被添加到了版本控制中，你需要先用 `git rm --cached` 移除它的跟踪状态，然后再更新 `.gitignore` 文件。
+- 如果 `node_modules` 文件夹非常大，可能会影响 Git 的性能，所以在大型项目中建议始终将其添加到 `.gitignore` 文件中。
+
+这些方法可以帮助你在 `git add` 的过程中过滤掉 `node_modules` 文件夹。
