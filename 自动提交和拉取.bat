@@ -46,10 +46,14 @@ cd /d "%REPO_DIR%"
 @REM )
 
 
+for /f "delims=" %%i in ('git status --porcelain') do (
+    if not "%%i" == "" (
         git add .
         set TIME=%time:~0,5%
         set COMMIT_MSG=自动提交: %DATE% at !TIME!
         git commit -m "!COMMIT_MSG!"
         github
-
+    )
+)
+     
 endlocal
