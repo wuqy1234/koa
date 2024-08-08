@@ -55,5 +55,12 @@ for /f "delims=" %%i in ('git status --porcelain') do (
         github
     )
 )
+ for /f "delims=" %%i in ('git status') do (
+    set aa=%%i
+    set bb=!aa:~0,23!
+    if "!bb!"=="Your branch is ahead of" (
+        github
+    )
+)
      
 endlocal
