@@ -5,12 +5,13 @@ chcp 65001 >nul
 set "markdownFile=C:\Users\86166\Desktop\koa-1\学习笔记\总体设计\规则设计\行为和属性(横向关联思维)\三者相互关联\退款规则.md"
 set "test=C:\Users\86166\Desktop\koa-1\test.md"
 
-for /f "usebackq tokens=* delims=" %%i in ("%markdownFile%") do (
+for /f "usebackq tokens=* delims=" %%i in ("%test%") do (
     set "line=%%i"
     set "suffix=!line:~20,1!"
     if not "!suffix!" == "" (
         echo !line!>>test.md
      echo -------------------------------------
+    @REM  usebackq表示从命令结果中读取数据。
          for /f "usebackq tokens=* delims=" %%j in ("%test%") do (
             set "line_in=%%j"
             set "suffix_in=!line_in:~20,1!"
@@ -30,6 +31,5 @@ for /f "usebackq tokens=* delims=" %%i in ("%markdownFile%") do (
      
 )
 
-  
    
 endlocal
