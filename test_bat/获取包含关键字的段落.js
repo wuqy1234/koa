@@ -33,7 +33,7 @@ KeywordData.forEach((a, b) => {
         }
     }
 })
-console.log(KeywordData)
+
 
 const dataAsString = KeywordData.join('\n');
 fs.writeFile(`${strPath + '/' + '关键字为' + process.env.EVN_KEYWORD + '.md'}`, dataAsString, 'utf8', (err) => {
