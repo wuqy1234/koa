@@ -22,8 +22,8 @@ for /r %1 %%f in (*) do (
         )
     )
 )
-
-cd C:\Users\86166\Desktop\koa-1\test_bat
+cd %~dp0
+@REM cd C:\Users\86166\Desktop\koa-1\test_bat
 node .\node除重.js
 
 

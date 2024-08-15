@@ -22,7 +22,8 @@ for /r %1 %%f in (*) do (
         )
     )
 )
-cd C:\Users\86166\Desktop\koa-1\test_bat
+cd %~dp0
+@REM cd C:\Users\86166\Desktop\koa-1\test_bat
 node .\获取包含关键字的段落.js
 
 del "C:\Users\86166\Desktop\初始合并.txt"
