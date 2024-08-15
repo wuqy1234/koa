@@ -24,6 +24,7 @@ keyword.forEach((a, b) => {
             if (c != '') {
                 if (c.includes(a.slice(0, a.length / 2))) {
                     keyword.splice(b, 1)
+                    // 在删除了一个元素时，index值可能是动态变化的。
                     if (keyword[b + 1] == '+++++++++') {
                         keyword.splice(b + 1, 1)
                     }
