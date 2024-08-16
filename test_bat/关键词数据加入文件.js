@@ -11,13 +11,14 @@ keyword = keywordDataUTF8.split(`\n`)
 
 let content = process.env.ENV_CONTENT.replace(/\\/g, '/');
 content = content.replace(/"/g, "")
-let contentPath = content.replace(/\.[\w]+/g, '') + '拼接数据.md'
+let contentPath = content.replace(/\.[\w]+/g, '') + '拼接关键词.md'
 
 const contentData = fs.readFileSync(`${content}`);
 const contentDataUTF8 = contentData.toString('utf8');
 content = contentDataUTF8.split(`\n`)
 
 let exclude = []
+// 判断目标文件中是否存在关键词段落，存在就记录到排除项。
 keyword.forEach((a) => {
     if (!a.includes('++++++')) {
         content.forEach((c) => {
@@ -29,16 +30,21 @@ keyword.forEach((a) => {
         })
     }
 });
-keyword.forEach((a, b) => {
-    if (!a.includes('++++++')) {
+
+for (let index = 0; index < keyword.length; index++) {
+    const element = keyword[index];
+    if (element != "+++++++++") {
         for (const paragraph of exclude) {
-            if (a.includes(paragraph)) {
-                keyword.splice(b, 1)
+            if (element == paragraph) {
+                keyword.splice(index, 1)
+                index--;
+                continue
             }
         }
     }
-})
-keyword.forEach((a, b) => {
+}
+
+keyword.forEach((a) => {
     if (!a.includes('++++++')) {
         content.push(a)
         content.push('++++++')
