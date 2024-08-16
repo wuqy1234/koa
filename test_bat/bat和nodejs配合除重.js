@@ -8,6 +8,7 @@ try {
 } catch (err) {
     console.error('读取文件失败:', err);
 }
+// 这里是爬取有重复的数据，而不是除重，爬取到了重复的数据后，后面就能手动的去查找这些重复的数据。
 let outputData= []
 initData.forEach((a, b) => {
     for (let index = b + 1; index < initData.length; index++) {

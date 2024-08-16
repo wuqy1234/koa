@@ -17,27 +17,34 @@ const contentData = fs.readFileSync(`${content}`);
 const contentDataUTF8 = contentData.toString('utf8');
 content = contentDataUTF8.split(`\n`)
 
-
-keyword.forEach((a, b) => {
-    if (a != '+++++++++') {
+let exclude = []
+keyword.forEach((a) => {
+    if (!a.includes('++++++')) {
         content.forEach((c) => {
-            if (c != '') {
-                if (c.includes(a.slice(0, a.length / 2))) {
-                    keyword.splice(b, 1)
-                    // 在删除了一个元素时，index值可能是动态变化的。
-                    if (keyword[b + 1] == '+++++++++') {
-                        keyword.splice(b + 1, 1)
-                    }
-                    if (keyword[b - 1] == '+++++++++') {
-                        keyword.splice(b - 1, 1)
-                    }
+            if (c != '\r' && !c.includes('#')) {
+                if (c.includes(a)) {
+                    exclude.push(a)
                 }
             }
         })
     }
 });
+keyword.forEach((a, b) => {
+    if (!a.includes('++++++')) {
+        for (const paragraph of exclude) {
+            if (a.includes(paragraph)) {
+                keyword.splice(b, 1)
+            }
+        }
+    }
+})
+keyword.forEach((a, b) => {
+    if (!a.includes('++++++')) {
+        content.push(a)
+        content.push('++++++')
+    }
+})
 
-content = content.concat(keyword)
 
 const dataAsString = content.join('\n');
 fs.writeFile(`${contentPath}`, dataAsString, 'utf8', (err) => {
