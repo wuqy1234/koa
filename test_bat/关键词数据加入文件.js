@@ -11,7 +11,7 @@ keyword = keywordDataUTF8.split(`\n`)
 
 let content = process.env.ENV_CONTENT.replace(/\\/g, '/');
 content = content.replace(/"/g, "")
-let contentPath = content.replace(/\.[\w]+/g, '') + '拼接关键词.md'
+let contentPath = content.replace(/\.[\w]+/g, '') + '正在分析中.md'
 
 const contentData = fs.readFileSync(`${content}`);
 const contentDataUTF8 = contentData.toString('utf8');
