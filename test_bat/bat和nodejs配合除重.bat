@@ -24,7 +24,7 @@ for /r %1 %%f in (*) do (
 )
 cd %~dp0
 @REM cd C:\Users\86166\Desktop\koa-1\test_bat
-node .\node除重.js
+node .\bat和nodejs配合除重.js
 
 
 del "C:\Users\86166\Desktop\初始合并.txt"

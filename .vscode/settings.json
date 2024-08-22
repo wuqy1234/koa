@@ -1,5 +1,11 @@
 {
     "wxcloud.containerDebug.VPC ProxyTargetEnvID": "prod-8gcmr08s23190b5f",
     "wxcloud.containerDebug.cliKey": "AAQ9G7sEAAABAAAAAAAsy5AbWNl2LouU0XJ/ZiAAAAAraAdzKm8i8JwFJ68cDOJBtIHsmv3F8e00LCv7f+tYvjeEQK/58D3kvLLxFe9ZmT9Ypq2lnblKtseGdHlHUoJGqAdgC8K5aBCj9zhd/G7y8bw+aBhG8GC8rXh9WivhTTdm7rVPS91FnwiirjkgT9rNZ7ttwkvB",
-    "wxcloud.containerDebug.appid": "wx983d3a0f1acddea3"
+    "wxcloud.containerDebug.appid": "wx983d3a0f1acddea3",
+    "editor.suggestFontSize": 20,
+    "editor.codeLensFontSize": 20,
+    "editor.inlayHints.fontSize": 20,
+    "notebook.markup.fontSize": 20,
+    "notebook.output.fontSize": 20,
+    "editor.fontSize": 16
 }
